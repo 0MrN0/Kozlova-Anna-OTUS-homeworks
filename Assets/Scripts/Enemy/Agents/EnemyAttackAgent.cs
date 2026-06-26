@@ -22,35 +22,35 @@ namespace ShootEmUp
 
         public void Reset()
         {
-            this.currentTime = this.countdown;
+            currentTime = countdown;
         }
 
         private void FixedUpdate()
         {
-            if (!this.moveAgent.IsReached)
+            if (!moveAgent.IsReached)
             {
                 return;
             }
             
-            if (!this.target.GetComponent<HitPointsComponent>().IsHitPointsExists())
+            if (!target.GetComponent<HitPointsComponent>().IsHitPointsExists())
             {
                 return;
             }
 
-            this.currentTime -= Time.fixedDeltaTime;
-            if (this.currentTime <= 0)
+            currentTime -= Time.fixedDeltaTime;
+            if (currentTime <= 0)
             {
-                this.Fire();
-                this.currentTime += this.countdown;
+                Fire();
+                currentTime += countdown;
             }
         }
 
         private void Fire()
         {
-            var startPosition = this.weaponComponent.Position;
-            var vector = (Vector2) this.target.transform.position - startPosition;
+            var startPosition = weaponComponent.Position;
+            var vector = (Vector2) target.transform.position - startPosition;
             var direction = vector.normalized;
-            this.OnFire?.Invoke(this.gameObject, startPosition, direction);
+            OnFire?.Invoke(gameObject, startPosition, direction);
         }
     }
 }
