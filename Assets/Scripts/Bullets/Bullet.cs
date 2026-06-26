@@ -23,7 +23,7 @@ namespace ShootEmUp
 
         public void SetVelocity(Vector2 velocity)
         {
-            this.rigidbody2D.velocity = velocity;
+            this.rigidbody2D.linearVelocity = velocity;
         }
 
         public void SetPhysicsLayer(int physicsLayer)
