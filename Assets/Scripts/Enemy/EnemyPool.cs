@@ -14,12 +14,13 @@ namespace ShootEmUp
         [Header("Pool")]
         [SerializeField] private Transform container;
         [SerializeField] private Enemy prefab;
+        [SerializeField] private int maxEnemyOnScreen = 7;
 
         private readonly Queue<Enemy> enemyPool = new();
         
         private void Awake()
         {
-            for (var i = 0; i < 7; i++)
+            for (var i = 0; i < maxEnemyOnScreen; i++)
             {
                 var enemy = Instantiate(prefab, container);
                 enemyPool.Enqueue(enemy);
