@@ -6,53 +6,33 @@ namespace ShootEmUp
 {
     public sealed class EnemyManager : MonoBehaviour
     {
-        [SerializeField]
-        private EnemyPool _enemyPool;
-
-        [SerializeField]
-        private BulletSystem _bulletSystem;
+        [SerializeField] private EnemyPool enemyPool;
         
-        private readonly HashSet<GameObject> m_activeEnemies = new();
+        private readonly HashSet<Enemy> _activeEnemies = new();
 
         private IEnumerator Start()
         {
             while (true)
             {
                 yield return new WaitForSeconds(1);
-                var enemy = _enemyPool.SpawnEnemy();
+                var enemy = enemyPool.SpawnEnemy();
                 if (enemy != null)
                 {
-                    if (m_activeEnemies.Add(enemy))
+                    if (_activeEnemies.Add(enemy))
                     {
-                        enemy.GetComponent<HitPointsComponent>().hpEmpty += OnDestroyed;
-                        enemy.GetComponent<EnemyAttackAgent>().OnFire += OnFire;
-                    }    
+                        enemy.DeadEvent += OnDestroyed;
+                    }
                 }
             }
         }
 
-        private void OnDestroyed(GameObject enemy)
+        private void OnDestroyed(Enemy enemy)
         {
-            if (m_activeEnemies.Remove(enemy))
+            if (_activeEnemies.Remove(enemy))
             {
-                enemy.GetComponent<HitPointsComponent>().hpEmpty -= OnDestroyed;
-                enemy.GetComponent<EnemyAttackAgent>().OnFire -= OnFire;
-
-                _enemyPool.UnspawnEnemy(enemy);
+                enemy.DeadEvent -= OnDestroyed;
+                enemyPool.UnspawnEnemy(enemy);
             }
-        }
-
-        private void OnFire(GameObject enemy, Vector2 position, Vector2 direction)
-        {
-            _bulletSystem.FlyBulletByArgs(new BulletSystem.Args
-            {
-                isPlayer = false,
-                physicsLayer = (int) PhysicsLayer.ENEMY_BULLET,
-                color = Color.red,
-                damage = 1,
-                position = position,
-                velocity = direction * 2.0f
-            });
         }
     }
 }

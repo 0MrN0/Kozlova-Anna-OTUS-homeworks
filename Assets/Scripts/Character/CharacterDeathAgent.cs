@@ -9,14 +9,14 @@ namespace ShootEmUp
 
         private void OnEnable()
         {
-            componentsHolder.HpComponent.hpEmpty += OnCharacterDeath;
+            componentsHolder.HpComponent.HpEmptyEvent += OnCharacterDeath;
         }
 
         private void OnDisable()
         {
-            componentsHolder.HpComponent.hpEmpty -= OnCharacterDeath;
+            componentsHolder.HpComponent.HpEmptyEvent -= OnCharacterDeath;
         }
 
-        private void OnCharacterDeath(GameObject _) => gameManager.FinishGame(); // заземленный аргумент не выглядит хорошо
+        private void OnCharacterDeath() => gameManager.FinishGame();
     }
 }

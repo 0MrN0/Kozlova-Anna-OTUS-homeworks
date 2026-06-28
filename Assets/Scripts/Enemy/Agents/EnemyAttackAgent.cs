@@ -4,25 +4,25 @@ namespace ShootEmUp
 {
     public sealed class EnemyAttackAgent : MonoBehaviour
     {
-        public delegate void FireHandler(GameObject enemy, Vector2 position, Vector2 direction);
+        public delegate void FireHandler(Vector2 position, Vector2 direction);
 
-        public event FireHandler OnFire;
+        public event FireHandler FireEvent;
 
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private EnemyMoveAgent moveAgent;
         [SerializeField] private float countdown;
 
-        private GameObject target;
-        private float currentTime;
+        private Transform _targetTranform;
+        private float _currentTime;
 
-        public void SetTarget(GameObject target)
+        public void SetTarget(Transform targetTransform)
         {
-            this.target = target;
+            _targetTranform = targetTransform;
         }
 
         public void Reset()
         {
-            currentTime = countdown;
+            _currentTime = countdown;
         }
 
         private void FixedUpdate()
@@ -31,26 +31,21 @@ namespace ShootEmUp
             {
                 return;
             }
-            
-            if (!target.GetComponent<HitPointsComponent>().IsHitPointsExists())
-            {
-                return;
-            }
 
-            currentTime -= Time.fixedDeltaTime;
-            if (currentTime <= 0)
+            _currentTime -= Time.fixedDeltaTime;
+            if (_currentTime <= 0)
             {
                 Fire();
-                currentTime += countdown;
+                _currentTime += countdown;
             }
         }
 
         private void Fire()
         {
             var startPosition = weaponComponent.Position;
-            var vector = (Vector2) target.transform.position - startPosition;
+            var vector = (Vector2)_targetTranform.transform.position - startPosition;
             var direction = vector.normalized;
-            OnFire?.Invoke(gameObject, startPosition, direction);
+            FireEvent?.Invoke(startPosition, direction);
         }
     }
 }
