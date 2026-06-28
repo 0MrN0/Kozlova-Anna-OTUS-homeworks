@@ -5,7 +5,7 @@ namespace ShootEmUp
     public sealed class CharacterDeathAgent : MonoBehaviour
     {
         [SerializeField] private GameManager gameManager;
-        [SerializeField] private CharacterComponentHolder componentsHolder;
+        [SerializeField] private CharacterComponentsHolder componentsHolder;
 
         private void OnEnable()
         {
@@ -17,6 +17,9 @@ namespace ShootEmUp
             componentsHolder.HpComponent.HpEmptyEvent -= OnCharacterDeath;
         }
 
-        private void OnCharacterDeath() => gameManager.FinishGame();
+        private void OnCharacterDeath()
+        {
+            gameManager.FinishGame();
+        }
     }
 }

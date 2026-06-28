@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class CharacterAttackAgent : MonoBehaviour
+    public sealed class CharacterAttackAgent : MonoBehaviour
     {
         [SerializeField] private InputManager inputManager;
         [SerializeField] private BulletSystem bulletSystem;
         [SerializeField] private BulletConfig bulletConfig;
-        [SerializeField] private CharacterComponentHolder componentsHolder;
+        [SerializeField] private CharacterComponentsHolder componentsHolder;
 
         private void OnEnable()
         {

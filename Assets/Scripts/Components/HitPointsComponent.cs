@@ -9,7 +9,7 @@ namespace ShootEmUp
 
         public event Action HpEmptyEvent;
 
-        [SerializeField] private int _curHp;
+        private int _curHp;
 
         public void Init()
         {

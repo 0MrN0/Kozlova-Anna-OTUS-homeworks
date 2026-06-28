@@ -9,12 +9,13 @@ namespace ShootEmUp
         [SerializeField] private EnemyPool enemyPool;
         
         private readonly HashSet<Enemy> _activeEnemies = new();
+        private static WaitForSeconds _waitForSeconds1 = new WaitForSeconds(1);
 
         private IEnumerator Start()
         {
             while (true)
             {
-                yield return new WaitForSeconds(1);
+                yield return _waitForSeconds1;
                 var enemy = enemyPool.SpawnEnemy();
                 if (enemy != null)
                 {

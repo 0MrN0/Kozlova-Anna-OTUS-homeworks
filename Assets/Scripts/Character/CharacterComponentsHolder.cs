@@ -6,7 +6,7 @@ namespace ShootEmUp
     [RequireComponent(typeof(TeamComponent))]
     [RequireComponent(typeof(HitPointsComponent))]
     [RequireComponent(typeof(MoveComponent))]
-    public class CharacterComponentHolder : MonoBehaviour
+    public sealed class CharacterComponentsHolder : MonoBehaviour
     {
         public MoveComponent MoveComponent { get; private set; }
         public HitPointsComponent HpComponent { get; private set; }

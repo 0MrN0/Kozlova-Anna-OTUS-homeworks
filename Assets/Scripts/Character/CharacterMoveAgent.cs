@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class CharacterMoveAgent : MonoBehaviour
+    public sealed class CharacterMoveAgent : MonoBehaviour
     {
         [SerializeField] private InputManager inputManager;
-        [SerializeField] private CharacterComponentHolder componentHolder;
+        [SerializeField] private CharacterComponentsHolder componentHolder;
 
         private float _horizontalDir;
 

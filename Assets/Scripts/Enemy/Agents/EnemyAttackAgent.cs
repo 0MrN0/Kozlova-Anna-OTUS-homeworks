@@ -1,23 +1,22 @@
+using System;
 using UnityEngine;
 
 namespace ShootEmUp
 {
     public sealed class EnemyAttackAgent : MonoBehaviour
     {
-        public delegate void FireHandler(Vector2 position, Vector2 direction);
-
-        public event FireHandler FireEvent;
+        public Action<Vector2, Vector2> FireEvent;
 
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private EnemyMoveAgent moveAgent;
         [SerializeField] private float countdown;
 
-        private Transform _targetTranform;
+        private Transform _targetTransform;
         private float _currentTime;
 
         public void SetTarget(Transform targetTransform)
         {
-            _targetTranform = targetTransform;
+            _targetTransform = targetTransform;
         }
 
         public void Reset()
@@ -43,7 +42,7 @@ namespace ShootEmUp
         private void Fire()
         {
             var startPosition = weaponComponent.Position;
-            var vector = (Vector2)_targetTranform.transform.position - startPosition;
+            var vector = (Vector2)_targetTransform.position - startPosition;
             var direction = vector.normalized;
             FireEvent?.Invoke(startPosition, direction);
         }

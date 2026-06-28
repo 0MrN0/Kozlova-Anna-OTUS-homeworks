@@ -6,7 +6,7 @@ namespace ShootEmUp
     [RequireComponent(typeof(EnemyMoveAgent))]
     [RequireComponent(typeof(EnemyAttackAgent))]
     [RequireComponent(typeof(HitPointsComponent))]
-    public class Enemy : MonoBehaviour
+    public sealed class Enemy : MonoBehaviour
     {
         public HitPointsComponent HpComponent { get; private set; }
         public EnemyMoveAgent MoveAgent { get; private set; }
