@@ -2,26 +2,19 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    [RequireComponent(typeof(HitPointsComponent))]
     public sealed class CharacterDeathAgent : MonoBehaviour
     {
         [SerializeField] private GameManager gameManager;
-
-        private HitPointsComponent _hitPoints;
-
-        private void Awake()
-        {
-            _hitPoints = GetComponent<HitPointsComponent>();
-        }
+        [SerializeField] private CharacterComponentHolder componentsHolder;
 
         private void OnEnable()
         {
-            _hitPoints.hpEmpty += OnCharacterDeath;
+            componentsHolder.HpComponent.hpEmpty += OnCharacterDeath;
         }
 
         private void OnDisable()
         {
-            _hitPoints.hpEmpty -= OnCharacterDeath;
+            componentsHolder.HpComponent.hpEmpty -= OnCharacterDeath;
         }
 
         private void OnCharacterDeath(GameObject _) => gameManager.FinishGame(); // заземленный аргумент не выглядит хорошо

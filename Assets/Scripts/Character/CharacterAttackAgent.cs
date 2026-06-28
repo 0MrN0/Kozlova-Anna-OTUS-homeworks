@@ -2,19 +2,12 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    [RequireComponent(typeof(WeaponComponent))]
     public class CharacterAttackAgent : MonoBehaviour
     {
         [SerializeField] private InputManager inputManager;
         [SerializeField] private BulletSystem bulletSystem;
         [SerializeField] private BulletConfig bulletConfig;
-
-        private WeaponComponent _weapon;
-
-        private void Awake()
-        {
-            _weapon = GetComponent<WeaponComponent>();
-        }
+        [SerializeField] private CharacterComponentHolder componentsHolder;
 
         private void OnEnable()
         {
@@ -34,8 +27,8 @@ namespace ShootEmUp
                 physicsLayer = (int)bulletConfig.physicsLayer,
                 color = bulletConfig.color,
                 damage = bulletConfig.damage,
-                position = _weapon.Position,
-                velocity = _weapon.Rotation * Vector3.up * bulletConfig.speed
+                position = componentsHolder.WeaponComponent.Position,
+                velocity = componentsHolder.WeaponComponent.Rotation * Vector3.up * bulletConfig.speed
             });
         }
     }

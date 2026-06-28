@@ -2,18 +2,12 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    [RequireComponent(typeof(MoveComponent))]
     public class CharacterMoveAgent : MonoBehaviour
     {
         [SerializeField] private InputManager inputManager;
+        [SerializeField] private CharacterComponentHolder componentHolder;
 
-        private MoveComponent _moveComponent;
         private float _horizontalDir;
-
-        private void Awake()
-        {
-            _moveComponent = GetComponent<MoveComponent>();
-        }
 
         private void OnEnable()
         {
@@ -27,7 +21,7 @@ namespace ShootEmUp
 
         private void FixedUpdate()
         {
-            _moveComponent.MoveByRigidbodyVelocity(new Vector2(_horizontalDir, 0) * Time.fixedDeltaTime);
+            componentHolder.MoveComponent.MoveByRigidbodyVelocity(new Vector2(_horizontalDir, 0) * Time.fixedDeltaTime);
         }
 
         private void OnHorizontalDirectionChanged(float newDir)
