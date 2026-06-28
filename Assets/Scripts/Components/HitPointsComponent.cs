@@ -9,10 +9,17 @@ namespace ShootEmUp
 
         public event Action HpEmptyEvent;
 
+        [SerializeField] private int _curHp;
+
+        public void Init()
+        {
+            _curHp = hitPoints;
+        }
+
         public void TakeDamage(int damage)
         {
-            hitPoints -= damage;
-            if (hitPoints <= 0)
+            _curHp -= damage;
+            if (_curHp <= 0)
             {
                 HpEmptyEvent?.Invoke();
             }

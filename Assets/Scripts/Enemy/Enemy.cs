@@ -19,6 +19,7 @@ namespace ShootEmUp
         public void Init(BulletSystem bulletSystem)
         {
             HpComponent = GetComponent<HitPointsComponent>();
+            HpComponent.Init();
             MoveAgent = GetComponent<EnemyMoveAgent>();
             AttackAgent = GetComponent<EnemyAttackAgent>();
             _bulletSystem = bulletSystem;

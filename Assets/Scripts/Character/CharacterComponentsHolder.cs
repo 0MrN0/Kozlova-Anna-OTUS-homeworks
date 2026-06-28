@@ -17,6 +17,7 @@ namespace ShootEmUp
         {
             MoveComponent = GetComponent<MoveComponent>();
             HpComponent = GetComponent<HitPointsComponent>();
+            HpComponent.Init();
             TeamComponent = GetComponent<TeamComponent>();
             WeaponComponent = GetComponent<WeaponComponent>();
         }
