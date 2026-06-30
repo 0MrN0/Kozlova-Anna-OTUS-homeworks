@@ -2,27 +2,21 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyMoveAgent : MonoBehaviour
+    public sealed class EnemyMoveAgent : EnemyMoveAgentBase
     {
-        public bool IsReached
-        {
-            get { return _isReached; }
-        }
-
         [SerializeField] private MoveComponent moveComponent;
 
         private Vector2 _destination;
-        private bool _isReached;
 
-        public void SetDestination(Vector2 endPoint)
+        public override void SetDestination(Vector2 endPoint)
         {
             _destination = endPoint;
-            _isReached = false;
+            IsReached = false;
         }
 
         private void FixedUpdate()
         {
-            if (_isReached)
+            if (IsReached)
             {
                 return;
             }
@@ -30,7 +24,7 @@ namespace ShootEmUp
             var vector = _destination - (Vector2) transform.position;
             if (vector.magnitude <= 0.25f)
             {
-                _isReached = true;
+                IsReached = true;
                 return;
             }
 

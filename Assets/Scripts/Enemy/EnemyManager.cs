@@ -6,9 +6,9 @@ namespace ShootEmUp
 {
     public sealed class EnemyManager : MonoBehaviour
     {
-        [SerializeField] private EnemyPool enemyPool;
-        
-        private readonly HashSet<Enemy> _activeEnemies = new();
+        [SerializeField] private EnemyPoolBase enemyPool;
+
+        private readonly HashSet<EnemyBase> _activeEnemies = new();
         private static WaitForSeconds _waitForSeconds1 = new WaitForSeconds(1);
 
         private IEnumerator Start()
@@ -27,7 +27,7 @@ namespace ShootEmUp
             }
         }
 
-        private void OnDestroyed(Enemy enemy)
+        private void OnDestroyed(EnemyBase enemy)
         {
             if (_activeEnemies.Remove(enemy))
             {

@@ -256,6 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa1facaae53f3f4fa73c67b6548ab52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootEmUp.Enemy
+  MoveAgent: {fileID: 8186052948131603766}
+  AttackAgent: {fileID: 6896809305229427933}
 --- !u!1 &2239154907127902911
 GameObject:
   m_ObjectHideFlags: 0

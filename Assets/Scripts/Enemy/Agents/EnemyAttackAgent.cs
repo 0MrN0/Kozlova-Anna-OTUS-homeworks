@@ -1,20 +1,17 @@
-using System;
 using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyAttackAgent : MonoBehaviour
+    public sealed class EnemyAttackAgent : EnemyAttackAgentBase
     {
-        public Action<Vector2, Vector2> FireEvent;
-
         [SerializeField] private WeaponComponent weaponComponent;
-        [SerializeField] private EnemyMoveAgent moveAgent;
+        [SerializeField] private EnemyMoveAgentBase moveAgent;
         [SerializeField] private float countdown;
 
         private Transform _targetTransform;
         private float _currentTime;
 
-        public void SetTarget(Transform targetTransform)
+        public override void SetTarget(Transform targetTransform)
         {
             _targetTransform = targetTransform;
         }

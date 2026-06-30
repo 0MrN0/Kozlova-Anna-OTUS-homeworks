@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyPool : MonoBehaviour
+    public sealed class EnemyPool : EnemyPoolBase
     {
         [Header("Spawn")]
         [SerializeField] private EnemyPositions enemyPositions;
@@ -16,8 +16,8 @@ namespace ShootEmUp
         [SerializeField] private Enemy prefab;
         [SerializeField] private int maxEnemyOnScreen = 7;
 
-        private readonly Queue<Enemy> _enemyPool = new();
-        
+        private readonly Queue<EnemyBase> _enemyPool = new();
+
         private void Awake()
         {
             for (var i = 0; i < maxEnemyOnScreen; i++)
@@ -27,7 +27,7 @@ namespace ShootEmUp
             }
         }
 
-        public Enemy SpawnEnemy()
+        public override EnemyBase SpawnEnemy()
         {
             if (!_enemyPool.TryDequeue(out var enemy))
             {
@@ -36,10 +36,11 @@ namespace ShootEmUp
 
             enemy.transform.SetParent(worldTransform);
             enemy.Init(bulletSystem);
+            enemy.Subscribe();
 
             var spawnPosition = enemyPositions.RandomSpawnPosition();
             enemy.transform.position = spawnPosition.position;
-            
+
             var attackPosition = enemyPositions.RandomAttackPosition();
             enemy.MoveAgent.SetDestination(attackPosition.position);
 
@@ -47,8 +48,9 @@ namespace ShootEmUp
             return enemy;
         }
 
-        public void UnspawnEnemy(Enemy enemy)
+        public override void UnspawnEnemy(EnemyBase enemy)
         {
+            enemy.Unsubscribe();
             enemy.transform.SetParent(container);
             _enemyPool.Enqueue(enemy);
         }

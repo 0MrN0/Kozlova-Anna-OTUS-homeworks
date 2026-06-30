@@ -1,38 +1,32 @@
-using System;
 using UnityEngine;
 
 namespace ShootEmUp
 {
-    [RequireComponent(typeof(EnemyMoveAgent))]
-    [RequireComponent(typeof(EnemyAttackAgent))]
+    [RequireComponent(typeof(EnemyMoveAgentBase))]
+    [RequireComponent(typeof(EnemyAttackAgentBase))]
     [RequireComponent(typeof(HitPointsComponent))]
-    public sealed class Enemy : MonoBehaviour
+    public sealed class Enemy : EnemyBase
     {
         public HitPointsComponent HpComponent { get; private set; }
-        public EnemyMoveAgent MoveAgent { get; private set; }
-        public EnemyAttackAgent AttackAgent { get; private set; }
-
-        public Action<Enemy> DeadEvent;
 
         private BulletSystem _bulletSystem;
 
-        public void Init(BulletSystem bulletSystem)
+        public override void Init(BulletSystem bulletSystem)
         {
             HpComponent = GetComponent<HitPointsComponent>();
             HpComponent.Init();
-            MoveAgent = GetComponent<EnemyMoveAgent>();
-            AttackAgent = GetComponent<EnemyAttackAgent>();
+            MoveAgent = GetComponent<EnemyMoveAgentBase>();
+            AttackAgent = GetComponent<EnemyAttackAgentBase>();
             _bulletSystem = bulletSystem;
-            Subscribe();
         }
 
-        private void Subscribe()
+        public override void Subscribe()
         {
             HpComponent.HpEmptyEvent += OnDeath;
             AttackAgent.FireEvent += OnFire;
         }
 
-        private void Unsubscribe()
+        public override void Unsubscribe()
         {
             HpComponent.HpEmptyEvent -= OnDeath;
             AttackAgent.FireEvent -= OnFire;
