@@ -5,6 +5,7 @@ namespace ShootEmUp
     public sealed class EnemyMoveAgent : EnemyMoveAgentBase
     {
         [SerializeField] private MoveComponent moveComponent;
+        [SerializeField] private float stopDistance = 0.25f;
 
         private Vector2 _destination;
 
@@ -22,7 +23,7 @@ namespace ShootEmUp
             }
             
             var vector = _destination - (Vector2) transform.position;
-            if (vector.magnitude <= 0.25f)
+            if (vector.magnitude <= stopDistance)
             {
                 IsReached = true;
                 return;
