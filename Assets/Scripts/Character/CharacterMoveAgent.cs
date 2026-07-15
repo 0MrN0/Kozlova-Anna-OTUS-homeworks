@@ -2,24 +2,23 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class CharacterMoveAgent : MonoBehaviour
+    public sealed class CharacterMoveAgent : MonoBehaviour, ISceneCyclePreStart, ISceneCycleFixedUpdate, ISceneCycleOnDestroy
     {
         [SerializeField] private InputManager inputManager;
         [SerializeField] private CharacterComponentsHolder componentHolder;
 
         private float _horizontalDir;
 
-        private void OnEnable()
+        public void OnPreStart()
+        {
+            inputManager.HorizontalDirectionChangedEvent += OnHorizontalDirectionChanged;
+        }
+        public void OnOnDestroy()
         {
             inputManager.HorizontalDirectionChangedEvent += OnHorizontalDirectionChanged;
         }
 
-        private void OnDisable()
-        {
-            inputManager.HorizontalDirectionChangedEvent -= OnHorizontalDirectionChanged;
-        }
-
-        private void FixedUpdate()
+        public void OnFixedUpdate()
         {
             componentHolder.MoveComponent.MoveByRigidbodyVelocity(new Vector2(_horizontalDir, 0) * Time.fixedDeltaTime);
         }

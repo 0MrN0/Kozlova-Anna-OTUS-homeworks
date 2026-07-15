@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class LevelBackground : MonoBehaviour
+    public sealed class LevelBackground : MonoBehaviour, ISceneCycleAwake, ISceneCycleFixedUpdate
     {
         [SerializeField] private Params backgroundParams;
 
@@ -14,7 +14,7 @@ namespace ShootEmUp
         private float _positionZ;
         private Transform _transform;
 
-        private void Awake()
+        public void OnAwake()
         {
             _startPositionY = backgroundParams.StartPositionY;
             _endPositionY = backgroundParams.EndPositionY;
@@ -25,7 +25,7 @@ namespace ShootEmUp
             _positionZ = position.z;
         }
 
-        private void FixedUpdate()
+        public void OnFixedUpdate()
         {
             if (_transform.position.y <= _endPositionY)
             {

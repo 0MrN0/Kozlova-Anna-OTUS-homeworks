@@ -3,8 +3,11 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyPool : EnemyPoolBase
+    public sealed class EnemyPool : EnemyPoolBase, ISceneCycleAwake
     {
+        [Header("Scene Cycle")]
+        [SerializeField] private SceneCycleRunner sceneCycleRunner;
+
         [Header("Spawn")]
         [SerializeField] private EnemyPositions enemyPositions;
         [SerializeField] private Transform characterTransform;
@@ -13,16 +16,18 @@ namespace ShootEmUp
 
         [Header("Pool")]
         [SerializeField] private Transform container;
-        [SerializeField] private Enemy prefab;
+        [SerializeField] private EnemyBase prefab;
         [SerializeField] private int maxEnemyOnScreen = 7;
 
         private readonly Queue<EnemyBase> _enemyPool = new();
 
-        private void Awake()
+        public void OnAwake()
         {
             for (var i = 0; i < maxEnemyOnScreen; i++)
             {
                 var enemy = Instantiate(prefab, container);
+                enemy.AttackAgent.SetTarget(characterTransform);
+                sceneCycleRunner.RegisterRuntimeEntity(enemy);
                 _enemyPool.Enqueue(enemy);
             }
         }
@@ -44,7 +49,6 @@ namespace ShootEmUp
             var attackPosition = enemyPositions.RandomAttackPosition();
             enemy.MoveAgent.SetDestination(attackPosition.position);
 
-            enemy.AttackAgent.SetTarget(characterTransform);
             return enemy;
         }
 

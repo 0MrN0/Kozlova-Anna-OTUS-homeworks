@@ -4,14 +4,19 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyManager : MonoBehaviour
+    public sealed class EnemyManager : MonoBehaviour, ISceneCycleStart 
     {
         [SerializeField] private EnemyPoolBase enemyPool;
 
         private readonly HashSet<EnemyBase> _activeEnemies = new();
         private static WaitForSeconds _waitForSeconds1 = new WaitForSeconds(1);
 
-        private IEnumerator Start()
+        public void OnStart()
+        {
+            StartCoroutine(EnemySpawnRoutine());
+        }
+
+        private IEnumerator EnemySpawnRoutine()
         {
             while (true)
             {
@@ -21,17 +26,17 @@ namespace ShootEmUp
                 {
                     if (_activeEnemies.Add(enemy))
                     {
-                        enemy.DeadEvent += OnDestroyed;
+                        enemy.DeadEvent += HandleEnemyDestroyed;
                     }
                 }
             }
         }
 
-        private void OnDestroyed(EnemyBase enemy)
+        private void HandleEnemyDestroyed(EnemyBase enemy)
         {
             if (_activeEnemies.Remove(enemy))
             {
-                enemy.DeadEvent -= OnDestroyed;
+                enemy.DeadEvent -= HandleEnemyDestroyed;
                 enemyPool.UnspawnEnemy(enemy);
             }
         }

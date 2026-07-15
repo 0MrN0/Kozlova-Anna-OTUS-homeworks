@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyAttackAgent : EnemyAttackAgentBase
+    public sealed class EnemyAttackAgent : EnemyAttackAgentBase, ISceneCycleFixedUpdate
     {
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private EnemyMoveAgentBase moveAgent;
@@ -21,7 +21,7 @@ namespace ShootEmUp
             _currentTime = countdown;
         }
 
-        private void FixedUpdate()
+        public void OnFixedUpdate()
         {
             if (!moveAgent.IsReached)
             {

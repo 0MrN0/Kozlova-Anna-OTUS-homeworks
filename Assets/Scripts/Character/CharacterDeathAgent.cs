@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class CharacterDeathAgent : MonoBehaviour
+    public sealed class CharacterDeathAgent : MonoBehaviour, ISceneCyclePreStart, ISceneCycleOnDestroy
     {
         [SerializeField] private GameManager gameManager;
         [SerializeField] private CharacterComponentsHolder componentsHolder;
 
-        private void OnEnable()
+        public void OnPreStart()
         {
             componentsHolder.HpComponent.HpEmptyEvent += OnCharacterDeath;
         }
 
-        private void OnDisable()
+        public void OnOnDestroy()
         {
             componentsHolder.HpComponent.HpEmptyEvent -= OnCharacterDeath;
         }
