@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace ShootEmUp
 {
-    public class ScenePauseController : MonoBehaviour, ISceneCycleAwake
+    public class ScenePauseController : MonoBehaviour, ISceneCycleAwake, ISceneCycleOnDestroy
     {
         [SerializeField] private SceneCycleRunner sceneCycleRunner;
         [SerializeField] private Button pauseResumeButton;
@@ -12,7 +12,13 @@ namespace ShootEmUp
 
         public void OnAwake()
         {
+            pauseResumeButton.interactable = true;
             SwitchButtonToPause();
+        }
+
+        public void OnOnDestroy()
+        {
+            pauseResumeButton.onClick.RemoveAllListeners();
         }
 
         private void PauseRunner()
