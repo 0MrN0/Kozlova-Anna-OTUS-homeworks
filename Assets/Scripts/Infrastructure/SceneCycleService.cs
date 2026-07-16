@@ -11,6 +11,8 @@ namespace ShootEmUp
         public void AllUpdate();
         public void AllLateUpdate();
         public void AllOnDestroy();
+        public void AllPause();
+        public void AllResume();
     }
 
     public class SceneCycleService : ISceneCycleService
@@ -22,6 +24,8 @@ namespace ShootEmUp
         private readonly List<ISceneCycleUpdate> _updates = new();
         private readonly List<ISceneCycleLateUpdate> _lateUpdates = new();
         private readonly List<ISceneCycleOnDestroy> _onDestroies = new();
+        private readonly List<ISceneCyclePause> _pauses = new();
+        private readonly List<ISceneCycleResume> _resumes = new();
 
 
         public void Register(ISceneCycle entity)
@@ -33,11 +37,8 @@ namespace ShootEmUp
             if (entity is ISceneCycleUpdate u && !_updates.Contains(u)) _updates.Add(u);
             if (entity is ISceneCycleLateUpdate lu && !_lateUpdates.Contains(lu)) _lateUpdates.Add(lu);
             if (entity is ISceneCycleOnDestroy ode && !_onDestroies.Contains(ode)) _onDestroies.Add(ode);
-        }
-
-        public void RegisterInRuntime(ISceneCycle entity)
-        {
-
+            if (entity is ISceneCyclePause p && !_pauses.Contains(p)) _pauses.Add(p);
+            if (entity is ISceneCycleResume r && !_resumes.Contains(r)) _resumes.Add(r);
         }
 
         public void AllAwake()
@@ -93,6 +94,22 @@ namespace ShootEmUp
             foreach (var e in _onDestroies)
             {
                 e.OnOnDestroy();
+            }
+        }
+
+        public void AllPause()
+        {
+            foreach (var e in _pauses)
+            {
+                e.OnPause();
+            }
+        }
+
+        public void AllResume()
+        {
+            foreach (var e in _resumes)
+            {
+                e.OnResume();
             }
         }
     }

@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ShootEmUp
 {
     public class SceneCycleRunner : MonoBehaviour
     {
-        private ISceneCycleService _cycleService = new SceneCycleService();
         [SerializeField] private List<MonoBehaviour> entities = new();
+
+        private ISceneCycleService _cycleService = new SceneCycleService();
 
 #if UNITY_EDITOR
         public void SetMonoBehavioursInEditor()
@@ -25,7 +27,7 @@ namespace ShootEmUp
                 _cycleService.Register(sc);
         }
 
-        private void Awake()
+        private void Init()
         {
             foreach (var e in entities)
             {
@@ -34,8 +36,18 @@ namespace ShootEmUp
                     _cycleService.Register(ce);
                 }
             }
+        }
+
+        private void Awake()
+        {
+            Init();
 
             _cycleService.AllAwake();
+        }
+
+        private void OnEnable()
+        {
+            _cycleService.AllResume();
         }
 
         private void Start()
@@ -58,6 +70,11 @@ namespace ShootEmUp
         private void LateUpdate()
         {
             _cycleService.AllLateUpdate();
+        }
+
+        private void OnDisable()
+        {
+            _cycleService.AllPause();
         }
 
         private void OnDestroy()

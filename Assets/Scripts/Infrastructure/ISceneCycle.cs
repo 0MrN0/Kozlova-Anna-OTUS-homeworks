@@ -15,4 +15,8 @@ namespace ShootEmUp
     public interface ISceneCycleLateUpdate : ISceneCycle { public void OnLateUpdate(); }
 
     public interface ISceneCycleOnDestroy : ISceneCycle { public void OnOnDestroy(); }
+
+    public interface ISceneCyclePause : ISceneCycle { public void OnPause(); }
+
+    public interface ISceneCycleResume : ISceneCycle { public void OnResume(); }
 }

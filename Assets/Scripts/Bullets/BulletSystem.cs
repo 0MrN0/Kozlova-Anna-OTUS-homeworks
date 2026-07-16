@@ -3,13 +3,16 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class BulletSystem : MonoBehaviour, ISceneCycleAwake, ISceneCycleFixedUpdate
-    {
+    public sealed class BulletSystem : MonoBehaviour, ISceneCycleAwake, ISceneCycleFixedUpdate, ISceneCyclePause, ISceneCycleResume
+    {   
+        [Header("Pool")]
+        [SerializeField] private LevelBounds levelBounds;
+        [SerializeField] private Transform worldTransform;
+
+        [Header("Pool")]
         [SerializeField] private int initialCount = 50;
         [SerializeField] private Transform container;
         [SerializeField] private Bullet prefab;
-        [SerializeField] private Transform worldTransform;
-        [SerializeField] private LevelBounds levelBounds;
 
         private readonly Queue<Bullet> _bulletPool = new();
         private readonly HashSet<Bullet> _activeBullets = new();
@@ -21,6 +24,23 @@ namespace ShootEmUp
             {
                 var bullet = Instantiate(prefab, container);
                 _bulletPool.Enqueue(bullet);
+            }
+        }
+
+        public void OnPause()
+        {
+            foreach (var b in _activeBullets)
+            {
+                if (b == null) continue;
+                b.PauseVelocity();
+            }
+        }
+
+        public void OnResume()
+        {
+            foreach (var b in _activeBullets)
+            {
+                b.ResumeVelocity();
             }
         }
 
