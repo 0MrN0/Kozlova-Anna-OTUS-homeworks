@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
@@ -9,20 +10,28 @@ namespace ShootEmUp
         [SerializeField] private EnemyPositions enemyPositions;
         [SerializeField] private Transform characterTransform;
         [SerializeField] private Transform worldTransform;
-        [SerializeField] private BulletSystem bulletSystem;
 
         [Header("Pool")]
-        [SerializeField] private Transform container;
+        [SerializeField] private Transform poolTransform;
         [SerializeField] private Enemy prefab;
         [SerializeField] private int maxEnemyOnScreen = 7;
 
+        private EnemyFactory _enemyFactory;
+
         private readonly Queue<EnemyBase> _enemyPool = new();
 
-        private void Awake()
+        [Preserve]
+        [Inject]
+        private void Construct(EnemyFactory enemyFactory)
+        {
+            _enemyFactory = enemyFactory;
+        }
+
+        private void Start()
         {
             for (var i = 0; i < maxEnemyOnScreen; i++)
             {
-                var enemy = Instantiate(prefab, container);
+                var enemy = _enemyFactory.Create(poolTransform);
                 _enemyPool.Enqueue(enemy);
             }
         }
@@ -35,7 +44,7 @@ namespace ShootEmUp
             }
 
             enemy.transform.SetParent(worldTransform);
-            enemy.Init(bulletSystem);
+            enemy.Init();
             enemy.Subscribe();
 
             var spawnPosition = enemyPositions.RandomSpawnPosition();
@@ -51,7 +60,7 @@ namespace ShootEmUp
         public override void UnspawnEnemy(EnemyBase enemy)
         {
             enemy.Unsubscribe();
-            enemy.transform.SetParent(container);
+            enemy.transform.SetParent(poolTransform);
             _enemyPool.Enqueue(enemy);
         }
     }

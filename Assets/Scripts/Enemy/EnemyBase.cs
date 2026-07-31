@@ -9,7 +9,7 @@ namespace ShootEmUp
         public EnemyMoveAgentBase MoveAgent;
         public EnemyAttackAgentBase AttackAgent;
 
-        public abstract void Init(BulletSystem bulletSystem);
+        public abstract void Init();
         public abstract void Subscribe();
         public abstract void Unsubscribe();
     }

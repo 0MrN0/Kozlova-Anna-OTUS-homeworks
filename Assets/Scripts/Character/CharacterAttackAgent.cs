@@ -1,13 +1,22 @@
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
     public sealed class CharacterAttackAgent : MonoBehaviour
-    {
+    {        
         [SerializeField] private InputManager inputManager;
-        [SerializeField] private BulletSystem bulletSystem;
         [SerializeField] private BulletConfig bulletConfig;
         [SerializeField] private CharacterComponentsHolder componentsHolder;
+
+        private BulletSystem _bulletSystem;
+
+        [Preserve]
+        [Inject]
+        private void Construct(BulletSystem bulletSystem)
+        {
+            _bulletSystem = bulletSystem;
+        }
 
         private void OnEnable()
         {
@@ -21,7 +30,7 @@ namespace ShootEmUp
 
         private void OnFlyBullet()
         {
-            bulletSystem.FlyBulletByArgs(new BulletSystem.Args
+            _bulletSystem.FlyBulletByArgs(new BulletArgs
             {
                 isPlayer = true,
                 physicsLayer = (int)bulletConfig.physicsLayer,

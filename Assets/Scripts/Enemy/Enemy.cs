@@ -1,4 +1,5 @@
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
@@ -11,13 +12,19 @@ namespace ShootEmUp
 
         private BulletSystem _bulletSystem;
 
-        public override void Init(BulletSystem bulletSystem)
+        [Preserve]
+        [Inject]
+        private void Construct(BulletSystem bulletSystem)
+        {
+            _bulletSystem = bulletSystem;
+        }
+
+        public override void Init()
         {
             HpComponent = GetComponent<HitPointsComponent>();
             HpComponent.Init();
             MoveAgent = GetComponent<EnemyMoveAgentBase>();
             AttackAgent = GetComponent<EnemyAttackAgentBase>();
-            _bulletSystem = bulletSystem;
         }
 
         public override void Subscribe()
@@ -40,7 +47,7 @@ namespace ShootEmUp
 
         private void OnFire(Vector2 position, Vector2 direction)
         {
-            _bulletSystem.FlyBulletByArgs(new BulletSystem.Args
+            _bulletSystem.FlyBulletByArgs(new BulletArgs
             {
                 isPlayer = false,
                 physicsLayer = (int)PhysicsLayer.ENEMY_BULLET,
