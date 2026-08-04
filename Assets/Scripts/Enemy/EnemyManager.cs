@@ -1,39 +1,72 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using VContainer;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyManager : MonoBehaviour
+    public sealed class EnemyManager : IStartable, IDisposable
     {
-        [SerializeField] private EnemyPoolBase enemyPool;
+        private readonly IEnemyPool _enemyPool;
 
         private readonly HashSet<EnemyBase> _activeEnemies = new();
-        private static WaitForSeconds _waitForSeconds1 = new WaitForSeconds(1);
+        private readonly int _enemySpawnCoolDownMsec = 1000;
+        private readonly CancellationTokenSource _cancelTokenSrc = new();
 
-        private IEnumerator Start()
+        [Inject]
+        public EnemyManager(IEnemyPool enemyPool)
         {
-            while (true)
+            _enemyPool = enemyPool;
+        }
+
+        public void Start()
+        {
+            SpawnEnemiesAsync(_cancelTokenSrc.Token).Forget();
+        }
+
+        private async UniTaskVoid SpawnEnemiesAsync(CancellationToken token)
+        {
+            try
             {
-                yield return _waitForSeconds1;
-                var enemy = enemyPool.SpawnEnemy();
-                if (enemy != null)
+                while (!token.IsCancellationRequested)
                 {
-                    if (_activeEnemies.Add(enemy))
+                    await UniTask.Delay(
+                        _enemySpawnCoolDownMsec,
+                        cancellationToken: token);
+
+                    var enemy = _enemyPool.SpawnEnemy();
+
+                    if (enemy != null && _activeEnemies.Add(enemy))
                     {
-                        enemy.DeadEvent += OnDestroyed;
+                        enemy.DeadEvent += OnEnemyDestroyed;
                     }
                 }
             }
+            catch (OperationCanceledException)
+            {
+            }
         }
 
-        private void OnDestroyed(EnemyBase enemy)
+        private void OnEnemyDestroyed(EnemyBase enemy)
         {
             if (_activeEnemies.Remove(enemy))
             {
-                enemy.DeadEvent -= OnDestroyed;
-                enemyPool.UnspawnEnemy(enemy);
+                enemy.DeadEvent -= OnEnemyDestroyed;
+                _enemyPool.UnspawnEnemy(enemy);
             }
+        }
+
+        public void Dispose()
+        {
+            _cancelTokenSrc.Cancel();
+            _cancelTokenSrc.Dispose();
+            foreach (var e in _activeEnemies)
+            {
+                e.DeadEvent -= OnEnemyDestroyed;
+            }
+            _activeEnemies.Clear();
         }
     }
 }

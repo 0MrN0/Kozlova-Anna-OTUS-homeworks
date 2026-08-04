@@ -1,66 +1,61 @@
 using System.Collections.Generic;
-using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyPool : EnemyPoolBase
+
+    public sealed class EnemyPool : IEnemyPool, IStartable
     {
-        [Header("Spawn")]
-        [SerializeField] private EnemyPositions enemyPositions;
-        [SerializeField] private Transform characterTransform;
-        [SerializeField] private Transform worldTransform;
-
-        [Header("Pool")]
-        [SerializeField] private Transform poolTransform;
-        [SerializeField] private Enemy prefab;
-        [SerializeField] private int maxEnemyOnScreen = 7;
-
-        private EnemyFactory _enemyFactory;
-
+        private readonly EnemyFactory _enemyFactory;
+        private readonly EnemyPositions _enemySpawnPositions;
+        private readonly EnemyPoolPrefs _prefs;
         private readonly Queue<EnemyBase> _enemyPool = new();
 
-        [Preserve]
         [Inject]
-        private void Construct(EnemyFactory enemyFactory)
+        public EnemyPool(EnemyFactory enemyFactory,
+                          EnemyPositions enemyPositions,
+                          EnemyPoolPrefs enemyPoolPrefs)
         {
             _enemyFactory = enemyFactory;
+            _enemySpawnPositions = enemyPositions;
+            _prefs = enemyPoolPrefs;
         }
 
-        private void Start()
+        public void Start()
         {
-            for (var i = 0; i < maxEnemyOnScreen; i++)
+            for (var i = 0; i < _prefs.MaxEnemyOnScreen; i++)
             {
-                var enemy = _enemyFactory.Create(poolTransform);
+                var enemy = _enemyFactory.Create(_prefs.PoolTransform);
                 _enemyPool.Enqueue(enemy);
             }
         }
 
-        public override EnemyBase SpawnEnemy()
+        public EnemyBase SpawnEnemy()
         {
             if (!_enemyPool.TryDequeue(out var enemy))
             {
                 return null;
             }
 
-            enemy.transform.SetParent(worldTransform);
+            enemy.transform.SetParent(_prefs.WorldTransform);
             enemy.Init();
             enemy.Subscribe();
 
-            var spawnPosition = enemyPositions.RandomSpawnPosition();
+            var spawnPosition = _enemySpawnPositions.RandomSpawnPosition();
             enemy.transform.position = spawnPosition.position;
 
-            var attackPosition = enemyPositions.RandomAttackPosition();
+            var attackPosition = _enemySpawnPositions.RandomAttackPosition();
             enemy.MoveAgent.SetDestination(attackPosition.position);
 
-            enemy.AttackAgent.SetTarget(characterTransform);
+            enemy.AttackAgent.SetTarget(_prefs.CharacterTransform);
             return enemy;
         }
 
-        public override void UnspawnEnemy(EnemyBase enemy)
+        public void UnspawnEnemy(EnemyBase enemy)
         {
             enemy.Unsubscribe();
-            enemy.transform.SetParent(poolTransform);
+            enemy.transform.SetParent(_prefs.PoolTransform);
             _enemyPool.Enqueue(enemy);
         }
     }

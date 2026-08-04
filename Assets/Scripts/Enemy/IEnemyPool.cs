@@ -1,8 +1,6 @@
-using UnityEngine;
-
 namespace ShootEmUp
 {
-    public abstract class EnemyPoolBase : MonoBehaviour
+    public interface IEnemyPool
     {
         public abstract EnemyBase SpawnEnemy();
         public abstract void UnspawnEnemy(EnemyBase enemy);

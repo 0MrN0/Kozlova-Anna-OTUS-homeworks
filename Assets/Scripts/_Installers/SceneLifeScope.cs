@@ -22,6 +22,11 @@ namespace ShootEmUp
 
         [Header("EnemySystem")]
         [SerializeField] private Enemy enemyPrefab;
+        [SerializeField] private EnemyPositions enemySpawnPositions;
+        [SerializeField] private Transform characterTransform;
+        [SerializeField] private Transform worldTransform;
+        [SerializeField] private Transform poolTransform;
+        [SerializeField] private int maxEnemyOnScreen = 7;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -31,10 +36,15 @@ namespace ShootEmUp
             builder.RegisterInstance(bulletPoolCapacity).Keyed(BulletSystemParams.bulletPoolCapacity);
             builder.RegisterInstance(bulletPoolTransform).Keyed(BulletSystemParams.bulletPoolTransform);
             builder.RegisterInstance(worldTransformForBullets).Keyed(BulletSystemParams.worldTransformForBullets);
-            builder.RegisterEntryPoint<BulletSystem>(Lifetime.Singleton).AsSelf();
+            builder.RegisterEntryPoint<BulletSystem>(Lifetime.Singleton).AsSelf(); // RegisterEntryPoint = Register.AsImplementedInterfaces + регистрация в цикле
 
             builder.RegisterComponent(enemyPrefab);
             builder.Register<EnemyFactory>(Lifetime.Singleton);
+            builder.RegisterComponent(enemySpawnPositions);
+            var enemyPoolPrefs = new EnemyPoolPrefs(characterTransform, worldTransform, poolTransform, maxEnemyOnScreen);
+            builder.RegisterInstance(enemyPoolPrefs);
+            builder.RegisterEntryPoint<EnemyPool>(Lifetime.Singleton).AsSelf();
+            builder.RegisterEntryPoint<EnemyManager>(Lifetime.Singleton).AsSelf();
         }
     }
 }
