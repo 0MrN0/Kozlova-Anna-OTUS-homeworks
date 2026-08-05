@@ -4,9 +4,9 @@ namespace ShootEmUp
 {
     [CreateAssetMenu(
         fileName = "BulletConfig",
-        menuName = "Bullets/New BulletConfig"
+        menuName = "Bullets/New Player BulletConfig"
     )]
-    public sealed class BulletConfig : ScriptableObject
+    public sealed class PlayerBulletConfig : ScriptableObject
     {
         public PhysicsLayer physicsLayer;
         public Color color;

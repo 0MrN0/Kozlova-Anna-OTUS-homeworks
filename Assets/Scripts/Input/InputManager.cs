@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class InputManager : MonoBehaviour
+    public sealed class InputManager : ITickable
     {
         public Action<float> HorizontalDirectionChangedEvent;
         public Action FireRequiredEvent;
 
-        private void Update()
+        public void Tick()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {

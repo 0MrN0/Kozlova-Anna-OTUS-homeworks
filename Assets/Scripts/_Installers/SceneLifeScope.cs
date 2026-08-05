@@ -28,6 +28,10 @@ namespace ShootEmUp
         [SerializeField] private Transform poolTransform;
         [SerializeField] private int maxEnemyOnScreen = 7;
 
+        [Header("PlayerSystem")]
+        [SerializeField] private CharacterComponentsHolder characterComponentsHolder;
+        [SerializeField] private PlayerBulletConfig playerBulletConfig;
+
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(levelBounds);
@@ -45,6 +49,15 @@ namespace ShootEmUp
             builder.RegisterInstance(enemyPoolPrefs);
             builder.RegisterEntryPoint<EnemyPool>(Lifetime.Singleton).AsSelf();
             builder.RegisterEntryPoint<EnemyManager>(Lifetime.Singleton).AsSelf();
+
+            builder.RegisterComponent(characterComponentsHolder);
+            builder.RegisterEntryPoint<InputManager>(Lifetime.Singleton).AsSelf();
+            builder.Register<GameManager>(Lifetime.Singleton);
+            builder.RegisterInstance(playerBulletConfig);
+
+            builder.RegisterEntryPoint<CharacterAttackAgent>(Lifetime.Singleton).AsSelf();
+            builder.RegisterEntryPoint<CharacterDeathAgent>(Lifetime.Singleton).AsSelf();
+            builder.RegisterEntryPoint<CharacterMoveAgent>(Lifetime.Singleton).AsSelf();
         }
     }
 }

@@ -1,27 +1,38 @@
+using System;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class CharacterMoveAgent : MonoBehaviour
+    public sealed class CharacterMoveAgent : IStartable, IFixedTickable, IDisposable
     {
-        [SerializeField] private InputManager inputManager;
-        [SerializeField] private CharacterComponentsHolder componentHolder;
+        private readonly InputManager _inputManager;
+        private readonly CharacterComponentsHolder _componentHolder;
 
         private float _horizontalDir;
 
-        private void OnEnable()
+        [Inject]
+        public CharacterMoveAgent(InputManager inputManager, 
+                                  CharacterComponentsHolder componentHolder)
         {
-            inputManager.HorizontalDirectionChangedEvent += OnHorizontalDirectionChanged;
+            _inputManager = inputManager;
+            _componentHolder = componentHolder;
         }
 
-        private void OnDisable()
+        public void Start()
         {
-            inputManager.HorizontalDirectionChangedEvent -= OnHorizontalDirectionChanged;
+            _inputManager.HorizontalDirectionChangedEvent += OnHorizontalDirectionChanged;
         }
 
-        private void FixedUpdate()
+        public void Dispose()
         {
-            componentHolder.MoveComponent.MoveByRigidbodyVelocity(new Vector2(_horizontalDir, 0) * Time.fixedDeltaTime);
+            _inputManager.HorizontalDirectionChangedEvent -= OnHorizontalDirectionChanged;
+        }
+
+        public void FixedTick()
+        {
+            _componentHolder.MoveComponent.MoveByRigidbodyVelocity(new Vector2(_horizontalDir, 0) * Time.fixedDeltaTime);
         }
 
         private void OnHorizontalDirectionChanged(float newDir)

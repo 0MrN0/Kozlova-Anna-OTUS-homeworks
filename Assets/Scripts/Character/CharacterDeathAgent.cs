@@ -1,25 +1,35 @@
-using UnityEngine;
+using System;
+using VContainer;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class CharacterDeathAgent : MonoBehaviour
+    public sealed class CharacterDeathAgent : IStartable, IDisposable
     {
-        [SerializeField] private GameManager gameManager;
-        [SerializeField] private CharacterComponentsHolder componentsHolder;
+        private readonly GameManager _gameManager;
+        private readonly CharacterComponentsHolder _componentsHolder;
 
-        private void OnEnable()
+        [Inject]
+        public CharacterDeathAgent(GameManager gameManager,
+                                   CharacterComponentsHolder componentsHolder)
         {
-            componentsHolder.HpComponent.HpEmptyEvent += OnCharacterDeath;
+            _gameManager = gameManager;
+            _componentsHolder = componentsHolder;
         }
 
-        private void OnDisable()
+        public void Start()
         {
-            componentsHolder.HpComponent.HpEmptyEvent -= OnCharacterDeath;
+            _componentsHolder.HpComponent.HpEmptyEvent += OnCharacterDeath;
+        }
+
+        public void Dispose()
+        {
+            _componentsHolder.HpComponent.HpEmptyEvent -= OnCharacterDeath;
         }
 
         private void OnCharacterDeath()
         {
-            gameManager.FinishGame();
+            _gameManager.FinishGame();
         }
     }
 }
