@@ -1,20 +1,28 @@
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyPositions : MonoBehaviour
+    public sealed class EnemyPositions
     {
-        [SerializeField] private Transform[] spawnPositions;
-        [SerializeField] private Transform[] attackPositions;
+        private readonly Transform[] _spawnPositions;
+        private readonly Transform[] _attackPositions;
+
+        public EnemyPositions(Transform[] spawnPositions,
+                              Transform[] attackPositions)
+        {
+            _spawnPositions = spawnPositions;
+            _attackPositions = attackPositions;
+        }
 
         public Transform RandomSpawnPosition()
         {
-            return RandomTransform(spawnPositions);
+            return RandomTransform(_spawnPositions);
         }
 
         public Transform RandomAttackPosition()
         {
-            return RandomTransform(attackPositions);
+            return RandomTransform(_attackPositions);
         }
 
         private Transform RandomTransform(Transform[] transforms)

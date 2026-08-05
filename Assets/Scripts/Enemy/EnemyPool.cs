@@ -8,17 +8,14 @@ namespace ShootEmUp
     public sealed class EnemyPool : IEnemyPool, IStartable
     {
         private readonly EnemyFactory _enemyFactory;
-        private readonly EnemyPositions _enemySpawnPositions;
         private readonly EnemyPoolPrefs _prefs;
         private readonly Queue<EnemyBase> _enemyPool = new();
 
         [Inject]
         public EnemyPool(EnemyFactory enemyFactory,
-                          EnemyPositions enemyPositions,
-                          EnemyPoolPrefs enemyPoolPrefs)
+                         EnemyPoolPrefs enemyPoolPrefs)
         {
             _enemyFactory = enemyFactory;
-            _enemySpawnPositions = enemyPositions;
             _prefs = enemyPoolPrefs;
         }
 
@@ -42,10 +39,10 @@ namespace ShootEmUp
             enemy.Init();
             enemy.Subscribe();
 
-            var spawnPosition = _enemySpawnPositions.RandomSpawnPosition();
+            var spawnPosition = _prefs.EnemyPositions.RandomSpawnPosition();
             enemy.transform.position = spawnPosition.position;
 
-            var attackPosition = _enemySpawnPositions.RandomAttackPosition();
+            var attackPosition = _prefs.EnemyPositions.RandomAttackPosition();
             enemy.MoveAgent.SetDestination(attackPosition.position);
 
             enemy.AttackAgent.SetTarget(_prefs.CharacterTransform);
