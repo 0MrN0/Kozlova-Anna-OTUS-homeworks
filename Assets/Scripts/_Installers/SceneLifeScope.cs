@@ -21,7 +21,8 @@ namespace ShootEmUp
         [SerializeField] private Transform worldTransformForBullets;
 
         [Header("EnemySystem")]
-        [SerializeField] private Enemy enemyPrefab;
+        [SerializeField] private EnemyComponentsHolder enemyPrefab;
+        [SerializeField] private EnemyConfig enemyConfig;
         [SerializeField] private Transform[] enemySpawnPositions;
         [SerializeField] private Transform[] enemyAttackPositions;
         [SerializeField] private Transform characterTransform;
@@ -44,6 +45,8 @@ namespace ShootEmUp
             builder.RegisterEntryPoint<BulletSystem>(Lifetime.Singleton).AsSelf(); // RegisterEntryPoint = Register.AsImplementedInterfaces + регистрация в цикле
 
             builder.RegisterComponent(enemyPrefab);
+            builder.RegisterInstance(enemyConfig);
+            builder.Register<Enemy>(Lifetime.Transient);
             builder.Register<EnemyFactory>(Lifetime.Singleton);
             
             var enemyPositions = new EnemyPositions(enemySpawnPositions, enemyAttackPositions);

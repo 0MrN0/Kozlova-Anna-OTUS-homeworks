@@ -16,9 +16,7 @@ GameObject:
   - component: {fileID: 5568771391735819372}
   - component: {fileID: 5568771391735819373}
   - component: {fileID: 5568771391735819374}
-  - component: {fileID: 8186052948131603766}
-  - component: {fileID: 6896809305229427933}
-  - component: {fileID: 315388304021890290}
+  - component: {fileID: 6321999990909114174}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
@@ -216,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 3195880656587174614}
---- !u!114 &8186052948131603766
+--- !u!114 &6321999990909114174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,39 +223,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 559606060570185700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bdb5771141e4cf18c434a69ec116e09, type: 3}
+  m_Script: {fileID: 11500000, guid: d96ce0475472fb745a4c8f16908e6a4a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  moveComponent: {fileID: 5568771391735819372}
---- !u!114 &6896809305229427933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559606060570185700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ba7965842e74a9f89ba3aa66d61da46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponComponent: {fileID: 5568771391735819374}
-  moveAgent: {fileID: 8186052948131603766}
-  countdown: 1
---- !u!114 &315388304021890290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 559606060570185700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa1facaae53f3f4fa73c67b6548ab52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShootEmUp.Enemy
-  MoveAgent: {fileID: 8186052948131603766}
-  AttackAgent: {fileID: 6896809305229427933}
+  m_EditorClassIdentifier: Assembly-CSharp::ShootEmUp.EnemyComponentsHolder
 --- !u!1 &2239154907127902911
 GameObject:
   m_ObjectHideFlags: 0

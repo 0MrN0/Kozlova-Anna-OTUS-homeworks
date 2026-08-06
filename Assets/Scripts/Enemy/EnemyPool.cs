@@ -9,7 +9,7 @@ namespace ShootEmUp
     {
         private readonly EnemyFactory _enemyFactory;
         private readonly EnemyPoolPrefs _prefs;
-        private readonly Queue<EnemyBase> _enemyPool = new();
+        private readonly Queue<IEnemy> _enemyPool = new();
 
         [Inject]
         public EnemyPool(EnemyFactory enemyFactory,
@@ -28,31 +28,30 @@ namespace ShootEmUp
             }
         }
 
-        public EnemyBase SpawnEnemy()
+        public IEnemy SpawnEnemy()
         {
             if (!_enemyPool.TryDequeue(out var enemy))
             {
                 return null;
             }
 
-            enemy.transform.SetParent(_prefs.WorldTransform);
-            enemy.Init();
+            enemy.ComponentsHolder.transform.SetParent(_prefs.WorldTransform);
             enemy.Subscribe();
 
             var spawnPosition = _prefs.EnemyPositions.RandomSpawnPosition();
-            enemy.transform.position = spawnPosition.position;
+            enemy.ComponentsHolder.transform.position = spawnPosition.position;
 
             var attackPosition = _prefs.EnemyPositions.RandomAttackPosition();
-            enemy.MoveAgent.SetDestination(attackPosition.position);
+            enemy.SetDestination(attackPosition.position);
 
-            enemy.AttackAgent.SetTarget(_prefs.CharacterTransform);
+            enemy.SetTarget(_prefs.CharacterTransform);
             return enemy;
         }
 
-        public void UnspawnEnemy(EnemyBase enemy)
+        public void UnspawnEnemy(IEnemy enemy)
         {
             enemy.Unsubscribe();
-            enemy.transform.SetParent(_prefs.PoolTransform);
+            enemy.ComponentsHolder.transform.SetParent(_prefs.PoolTransform);
             _enemyPool.Enqueue(enemy);
         }
     }

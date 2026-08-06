@@ -1,42 +1,67 @@
+using System;
 using UnityEngine;
 using VContainer;
 
 namespace ShootEmUp
 {
-    [RequireComponent(typeof(EnemyMoveAgentBase))]
-    [RequireComponent(typeof(EnemyAttackAgentBase))]
-    [RequireComponent(typeof(HitPointsComponent))]
-    public sealed class Enemy : EnemyBase
+    public sealed class Enemy : IEnemy
     {
-        public HitPointsComponent HpComponent { get; private set; }
+        public Action<IEnemy> DeadEvent { get; set; }
+        public EnemyComponentsHolder ComponentsHolder { get; private set; }
+        
+        private EnemyDeathAgent _deathAgent;
+        private EnemyMoveAgent _moveAgent;
+        private EnemyAttackAgent _attackAgent;
 
-        private BulletSystem _bulletSystem;
+        private readonly BulletSystem _bulletSystem;
+        private readonly EnemyConfig _enemyConfig;
 
-        [Preserve]
         [Inject]
-        private void Construct(BulletSystem bulletSystem)
+        public Enemy(BulletSystem bulletSystem,
+                     EnemyConfig enemyConfig)
         {
             _bulletSystem = bulletSystem;
+            _enemyConfig = enemyConfig;
         }
 
-        public override void Init()
+        public void Init(EnemyComponentsHolder componentsHolder)
         {
-            HpComponent = GetComponent<HitPointsComponent>();
-            HpComponent.Init();
-            MoveAgent = GetComponent<EnemyMoveAgentBase>();
-            AttackAgent = GetComponent<EnemyAttackAgentBase>();
+            ComponentsHolder = componentsHolder;
+            _deathAgent = new(ComponentsHolder.HpComponent);
+            _moveAgent = new(ComponentsHolder.MoveComponent, _enemyConfig.MoveStopDistance);
+            _attackAgent = new(ComponentsHolder.WeaponComponent, _moveAgent, _enemyConfig.AttackCoolDown);
         }
 
-        public override void Subscribe()
+        public void Subscribe()
         {
-            HpComponent.HpEmptyEvent += OnDeath;
-            AttackAgent.FireEvent += OnFire;
+            _deathAgent.HpComponent.HpEmptyEvent += OnDeath;
+            _attackAgent.FireEvent += OnFire;
         }
 
-        public override void Unsubscribe()
+        public void Unsubscribe()
         {
-            HpComponent.HpEmptyEvent -= OnDeath;
-            AttackAgent.FireEvent -= OnFire;
+            _deathAgent.HpComponent.HpEmptyEvent -= OnDeath;
+            _attackAgent.FireEvent -= OnFire;
+        }
+
+        public void Move()
+        {
+            _moveAgent.Move();
+        }
+
+        public void Attack()
+        {
+            _attackAgent.Attack();
+        }
+
+        public void SetDestination(Vector3 destination)
+        {
+            _moveAgent.SetDestination(destination);
+        }
+
+        public void SetTarget(Transform target)
+        {
+            _attackAgent.SetTarget(target);
         }
 
         private void OnDeath()

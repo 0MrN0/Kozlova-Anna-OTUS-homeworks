@@ -2,7 +2,7 @@ namespace ShootEmUp
 {
     public interface IEnemyPool
     {
-        public abstract EnemyBase SpawnEnemy();
-        public abstract void UnspawnEnemy(EnemyBase enemy);
+        public abstract IEnemy SpawnEnemy();
+        public abstract void UnspawnEnemy(IEnemy enemy);
     }
 }

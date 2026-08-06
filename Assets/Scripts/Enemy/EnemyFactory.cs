@@ -7,18 +7,22 @@ namespace ShootEmUp
     public sealed class EnemyFactory
     {
         private readonly IObjectResolver _container;
-        private readonly Enemy _enemyPrefab;
+        private readonly EnemyComponentsHolder _enemyComponentsPrefab;
 
         [Inject]
-        public EnemyFactory(IObjectResolver container, Enemy bulletPrefab)
+        public EnemyFactory(IObjectResolver container, EnemyComponentsHolder enemyComponentsPrefab)
         {
             _container = container;
-            _enemyPrefab = bulletPrefab;
+            _enemyComponentsPrefab = enemyComponentsPrefab;
         }
 
         public Enemy Create(Transform parentTransform)
         {
-            return _container.Instantiate(_enemyPrefab, parentTransform);
+            var enemyComponents = _container.Instantiate(_enemyComponentsPrefab, parentTransform);
+            enemyComponents.Init();
+            var enemy = _container.Resolve<Enemy>();
+            enemy.Init(enemyComponents);
+            return enemy;
         }
     }
 }
