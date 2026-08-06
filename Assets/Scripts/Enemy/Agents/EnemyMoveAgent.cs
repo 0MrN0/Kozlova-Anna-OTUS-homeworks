@@ -5,15 +5,17 @@ namespace ShootEmUp
     public sealed class EnemyMoveAgent
     {
         public bool IsReached { get; private set; } = false;
-        
+
         private readonly MoveComponent _moveComponent;
+        private readonly LevelBounds _levelBounds;
         private readonly float _stopDistance = 0.25f;
 
         private Vector2 _destination;
 
-        public EnemyMoveAgent(MoveComponent moveComponent, float stopDistance)
+        public EnemyMoveAgent(MoveComponent moveComponent, LevelBounds levelBounds, float stopDistance)
         {
             _moveComponent = moveComponent;
+            _levelBounds = levelBounds;
             _stopDistance = stopDistance;
         }
 
@@ -38,7 +40,7 @@ namespace ShootEmUp
             }
 
             var direction = vector.normalized * Time.fixedDeltaTime;
-            _moveComponent.MoveByRigidbodyVelocity(direction);
+            _moveComponent.TryMoveByRigidbodyVelocity(direction, _levelBounds);
         }
     }
 }

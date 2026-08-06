@@ -13,10 +13,12 @@ namespace ShootEmUp
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-        
-        public void MoveByRigidbodyVelocity(Vector2 vector)
+
+        public void TryMoveByRigidbodyVelocity(Vector2 vector, LevelBounds levelBounds)
         {
             var nextPosition = _rb.position + vector * speed;
+            if (!levelBounds.InBounds(nextPosition)) return;
+            
             _rb.MovePosition(nextPosition);
         }
     }

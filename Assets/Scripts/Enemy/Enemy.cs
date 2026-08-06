@@ -8,19 +8,22 @@ namespace ShootEmUp
     {
         public Action<IEnemy> DeadEvent { get; set; }
         public EnemyComponentsHolder ComponentsHolder { get; private set; }
-        
+
         private EnemyDeathAgent _deathAgent;
         private EnemyMoveAgent _moveAgent;
         private EnemyAttackAgent _attackAgent;
 
         private readonly BulletSystem _bulletSystem;
+        private readonly LevelBounds _levelBounds;
         private readonly EnemyConfig _enemyConfig;
 
         [Inject]
         public Enemy(BulletSystem bulletSystem,
+                     LevelBounds levelBounds,
                      EnemyConfig enemyConfig)
         {
             _bulletSystem = bulletSystem;
+            _levelBounds = levelBounds;
             _enemyConfig = enemyConfig;
         }
 
@@ -28,7 +31,7 @@ namespace ShootEmUp
         {
             ComponentsHolder = componentsHolder;
             _deathAgent = new(ComponentsHolder.HpComponent);
-            _moveAgent = new(ComponentsHolder.MoveComponent, _enemyConfig.MoveStopDistance);
+            _moveAgent = new(ComponentsHolder.MoveComponent, _levelBounds, _enemyConfig.MoveStopDistance);
             _attackAgent = new(ComponentsHolder.WeaponComponent, _moveAgent, _enemyConfig.AttackCoolDown);
         }
 
