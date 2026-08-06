@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyConfig
   m_EditorClassIdentifier: Assembly-CSharp::ShootEmUp.EnemyConfig
   moveStopDistance: 0.1
-  attackCoolDown: 0.5
+  attackCoolDown: 1.5
