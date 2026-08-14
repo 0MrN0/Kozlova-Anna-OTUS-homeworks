@@ -1,3 +1,5 @@
 ﻿<Solution>
+  <Project Path="VContainer.Editor.csproj" />
+  <Project Path="VContainer.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
 </Solution>
