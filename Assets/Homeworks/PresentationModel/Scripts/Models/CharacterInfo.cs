@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using R3;
 
 namespace Lessons.Architecture.PM
 {
     public sealed class CharacterInfo
     {
-        public event Action<CharacterStat> OnStatAdded;
-        public event Action<CharacterStat> OnStatRemoved;
+        public Observable<CharacterStat> OnStatAdded => _onStatAdded;
+        public Observable<CharacterStat> OnStatRemoved => _onStatRemoved;
+
+        private readonly Subject<CharacterStat> _onStatAdded;
+        private readonly Subject<CharacterStat> _onStatRemoved;
 
         private readonly HashSet<CharacterStat> stats = new();
 
@@ -15,7 +19,7 @@ namespace Lessons.Architecture.PM
         {
             if (stats.Add(stat))
             {
-                OnStatAdded?.Invoke(stat);
+                _onStatAdded.OnNext(stat);
             }
         }
 
@@ -23,7 +27,7 @@ namespace Lessons.Architecture.PM
         {
             if (stats.Remove(stat))
             {
-                OnStatRemoved?.Invoke(stat);
+                _onStatRemoved.OnNext(stat);
             }
         }
 
