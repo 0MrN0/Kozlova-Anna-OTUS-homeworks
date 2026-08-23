@@ -16,7 +16,7 @@ MonoBehaviour:
   _description: I'm the worst tank in the Light Kingdom
   _icon: {fileID: 21300000, guid: 7c0892898786946a98a1057c9873611a, type: 3}
   _currentLevel: 1
-  _currentExpirience: 0
+  _currentExperience: 50
   _stats:
   - Name: Move Speed
     Value: 15

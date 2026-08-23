@@ -16,7 +16,7 @@ MonoBehaviour:
   _description: I'm the best warrior in the Light Kingdom
   _icon: {fileID: 21300000, guid: 954d79ad0f5124da59b33552ab47a641, type: 3}
   _currentLevel: 2
-  _currentExpirience: 233
+  _currentExperience: 128
   _stats:
   - Name: Move Speed
     Value: 13

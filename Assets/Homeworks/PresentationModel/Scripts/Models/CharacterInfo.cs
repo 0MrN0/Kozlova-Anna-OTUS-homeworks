@@ -10,8 +10,8 @@ namespace Lessons.Architecture.PM
         public Observable<CharacterStat> OnStatAdded => _onStatAdded;
         public Observable<CharacterStat> OnStatRemoved => _onStatRemoved;
 
-        private readonly Subject<CharacterStat> _onStatAdded;
-        private readonly Subject<CharacterStat> _onStatRemoved;
+        private readonly Subject<CharacterStat> _onStatAdded = new();
+        private readonly Subject<CharacterStat> _onStatRemoved = new();
 
         private readonly HashSet<CharacterStat> stats = new();
 

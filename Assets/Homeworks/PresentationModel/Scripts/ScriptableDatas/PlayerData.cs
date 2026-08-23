@@ -10,7 +10,7 @@ namespace Lessons.Architecture.PM
         public string Description => _description;
         public Sprite Icon => _icon;
         public int CurrentLevel => _currentLevel;
-        public int CurrentExperience => _currentExpirience;
+        public int CurrentExperience => _currentExperience;
         public IReadOnlyList<StatData> Stats => _stats;
 
         [Header("Base Info")]
@@ -20,7 +20,7 @@ namespace Lessons.Architecture.PM
 
         [Header("Level Info")]
         [SerializeField] private int _currentLevel;
-        [SerializeField] private int _currentExpirience;
+        [SerializeField] private int _currentExperience;
 
         [Header("Stats Info")]
         [SerializeField] private List<StatData> _stats = new();

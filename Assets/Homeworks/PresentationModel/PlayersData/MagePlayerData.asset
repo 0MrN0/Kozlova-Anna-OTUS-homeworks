@@ -16,7 +16,7 @@ MonoBehaviour:
   _description: I'm the best mage in the Ice Kingdom
   _icon: {fileID: 21300000, guid: a564258f7260e47d58e9ee37e2a3abb7, type: 3}
   _currentLevel: 3
-  _currentExpirience: 390
+  _currentExperience: 10
   _stats:
   - Name: Move Speed
     Value: 12
