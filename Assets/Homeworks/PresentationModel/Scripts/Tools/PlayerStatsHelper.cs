@@ -1,27 +1,26 @@
 using UnityEngine;
+using VContainer;
 
 namespace Lessons.Architecture.PM
 {
     public sealed class PlayerStatsHelper : MonoBehaviour
     {
-        [SerializeField] private StatView _moveSpeedStatView;
-        [SerializeField] private StatStringFormat _statStringFormat;
+        [SerializeField] private PlayerStatsView _playerStatsView;
 
-        private Stat _currentStat;
-        private IStatViewModel _currentViewModel;
+        private StatViewModelFactory _factory;
+        private IPlayerStatsViewModel _currentViewModel;
 
-
-        public void ShowFirstStat(PlayerData playerData)
+        [Inject]
+        public void Construct(StatViewModelFactory factory)
         {
-            _currentViewModel?.Dispose();
-            _currentStat = new(playerData.Stats[0].Name, playerData.Stats[0].Value);
-            _currentViewModel = new StatViewModel(_currentStat, _statStringFormat);
-            _moveSpeedStatView.Init(_currentViewModel);
+            _factory = factory;
         }
 
-        public void ChangeFirstStatValue(int value)
+        public void Show(PlayerStats playerStats)
         {
-            _currentStat?.ChangeValue(value);
+            _currentViewModel?.Dispose();
+            _currentViewModel = new PlayerStatsViewModel(playerStats.Stats, _factory);
+            _playerStatsView.Init(_currentViewModel);
         }
     }
 }

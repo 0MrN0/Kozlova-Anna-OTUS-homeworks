@@ -7,6 +7,8 @@ namespace Lessons.Architecture.PM.Editor
     public sealed class PlayerStatsHelperEditor : UnityEditor.Editor
     {
         private PlayerData _playerData;
+        private PlayerStats _playerStats;
+        private string _statName;
         private int _value;
 
         public override void OnInspectorGUI()
@@ -20,18 +22,20 @@ namespace Lessons.Architecture.PM.Editor
             {
                 if (GUILayout.Button("Show"))
                 {
-                    ((PlayerStatsHelper)target).ShowFirstStat(_playerData);
+                    _playerStats = new PlayerStats(_playerData.Stats);
+                    ((PlayerStatsHelper)target).Show(_playerStats);
                 }
             }
 
             EditorGUILayout.Space();
+            _statName = EditorGUILayout.TextField("Stat Name", _statName);
             _value = EditorGUILayout.IntField("Value", _value);
 
-            using (new EditorGUI.DisabledScope(!Application.isPlaying))
+            using (new EditorGUI.DisabledScope(!Application.isPlaying || _playerStats == null))
             {
                 if (GUILayout.Button("ChangeStatValue"))
                 {
-                    ((PlayerStatsHelper)target).ChangeFirstStatValue(_value);
+                    _playerStats.GetStat(_statName).ChangeValue(_value);
                 }
             }
         }

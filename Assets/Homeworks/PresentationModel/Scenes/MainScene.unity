@@ -956,6 +956,8 @@ MonoBehaviour:
   autoInjectGameObjects: []
   _levelHelper: {fileID: 1520508452}
   _levelStringFormat: {fileID: 11400000, guid: 487dfb216447d4745943ec0b7be11500, type: 2}
+  _playerStatsHelper: {fileID: 1520508453}
+  _statStringFormat: {fileID: 11400000, guid: 5d2f99dc7f8fc4049bfd8d588057f058, type: 2}
 --- !u!4 &543145173
 Transform:
   m_ObjectHideFlags: 0
@@ -2489,6 +2491,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1358139340}
+  - component: {fileID: 1358139341}
   m_Layer: 5
   m_Name: Stats
   m_TagString: Untagged
@@ -2517,6 +2520,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 150}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &1358139341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358139339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee94d3327befc240b92073e2c0ffcdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.PlayerStatsView
+  _statViews:
+  - {fileID: 1143300369}
+  - {fileID: 1187202121}
+  - {fileID: 1170407346}
+  - {fileID: 149027125}
+  - {fileID: 1048810368}
+  - {fileID: 1368748455}
 --- !u!1 &1368748453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,8 +2861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0881bab96a58a9046a8b365997551a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.PlayerStatsHelper
-  _moveSpeedStatView: {fileID: 1143300369}
-  _statStringFormat: {fileID: 11400000, guid: 5d2f99dc7f8fc4049bfd8d588057f058, type: 2}
+  _playerStatsView: {fileID: 1358139341}
 --- !u!1 &1561423019
 GameObject:
   m_ObjectHideFlags: 0

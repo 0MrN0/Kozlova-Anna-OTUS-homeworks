@@ -1,52 +1,36 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using R3;
 
 namespace Lessons.Architecture.PM
 {
     public sealed class PlayerStats
     {
-        public Observable<Stat> OnStatAdded => _onStatAdded;
-        public Observable<Stat> OnStatRemoved => _onStatRemoved;
+        public IReadOnlyList<Stat> Stats => _stats;
 
-        private readonly Subject<Stat> _onStatAdded = new();
-        private readonly Subject<Stat> _onStatRemoved = new();
+        private readonly List<Stat> _stats;
 
-        private readonly HashSet<Stat> stats = new();
-
-        public void AddStat(Stat stat)
+        public PlayerStats(IReadOnlyList<StatData> statData)
         {
-            if (stats.Add(stat))
-            {
-                _onStatAdded.OnNext(stat);
-            }
-        }
+            _stats = new List<Stat>(statData.Count);
 
-        public void RemoveStat(Stat stat)
-        {
-            if (stats.Remove(stat))
+            for (var i = 0; i < statData.Count; i++)
             {
-                _onStatRemoved.OnNext(stat);
+                var data = statData[i];
+                _stats.Add(new Stat(data.Name, data.Value));
             }
         }
 
         public Stat GetStat(string name)
         {
-            foreach (var stat in stats)
+            for (var i = 0; i < _stats.Count; i++)
             {
-                if (stat.Name == name)
+                if (_stats[i].Name == name)
                 {
-                    return stat;
+                    return _stats[i];
                 }
             }
 
-            throw new Exception($"Stat {name} is not found!");
-        }
-
-        public Stat[] GetStats()
-        {
-            return stats.ToArray();
+            throw new ArgumentException($"Stat \"{name}\" is not found!");
         }
     }
 }

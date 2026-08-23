@@ -13,6 +13,7 @@ namespace Lessons.Architecture.PM
 
         public void Init(IStatViewModel statViewModel)
         {
+            _disposable?.Dispose();
             _disposable = statViewModel.StatString.Subscribe(value => UpdateStatText(value));
         }
 
