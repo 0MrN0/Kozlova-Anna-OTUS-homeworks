@@ -5,17 +5,17 @@ using R3;
 
 namespace Lessons.Architecture.PM
 {
-    public sealed class CharacterInfo
+    public sealed class PlayerStats
     {
-        public Observable<CharacterStat> OnStatAdded => _onStatAdded;
-        public Observable<CharacterStat> OnStatRemoved => _onStatRemoved;
+        public Observable<Stat> OnStatAdded => _onStatAdded;
+        public Observable<Stat> OnStatRemoved => _onStatRemoved;
 
-        private readonly Subject<CharacterStat> _onStatAdded = new();
-        private readonly Subject<CharacterStat> _onStatRemoved = new();
+        private readonly Subject<Stat> _onStatAdded = new();
+        private readonly Subject<Stat> _onStatRemoved = new();
 
-        private readonly HashSet<CharacterStat> stats = new();
+        private readonly HashSet<Stat> stats = new();
 
-        public void AddStat(CharacterStat stat)
+        public void AddStat(Stat stat)
         {
             if (stats.Add(stat))
             {
@@ -23,7 +23,7 @@ namespace Lessons.Architecture.PM
             }
         }
 
-        public void RemoveStat(CharacterStat stat)
+        public void RemoveStat(Stat stat)
         {
             if (stats.Remove(stat))
             {
@@ -31,7 +31,7 @@ namespace Lessons.Architecture.PM
             }
         }
 
-        public CharacterStat GetStat(string name)
+        public Stat GetStat(string name)
         {
             foreach (var stat in stats)
             {
@@ -44,7 +44,7 @@ namespace Lessons.Architecture.PM
             throw new Exception($"Stat {name} is not found!");
         }
 
-        public CharacterStat[] GetStats()
+        public Stat[] GetStats()
         {
             return stats.ToArray();
         }
