@@ -19,7 +19,7 @@ namespace Lessons.Architecture.PM
         [SerializeField] private Button _levelUpButton;
 
         private ILevelViewModel _levelViewModel;
-        private CompositeDisposable _disposable = new();
+        private readonly CompositeDisposable _disposable = new();
 
         public void Init(ILevelViewModel levelViewModel)
         {

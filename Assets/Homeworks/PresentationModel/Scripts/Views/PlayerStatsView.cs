@@ -8,6 +8,8 @@ namespace Lessons.Architecture.PM
 
         public void Init(IPlayerStatsViewModel viewModel)
         {
+            Debug.Assert(_statViews.Length == viewModel.Stats.Count, "StatView slot count doesn't match PlayerStats count");
+
             for (var i = 0; i < _statViews.Length; i++)
             {
                 _statViews[i].Init(viewModel.Stats[i]);

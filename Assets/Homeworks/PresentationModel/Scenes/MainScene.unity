@@ -958,6 +958,9 @@ MonoBehaviour:
   _levelStringFormat: {fileID: 11400000, guid: 487dfb216447d4745943ec0b7be11500, type: 2}
   _playerStatsHelper: {fileID: 1520508453}
   _statStringFormat: {fileID: 11400000, guid: 5d2f99dc7f8fc4049bfd8d588057f058, type: 2}
+  _userHelper: {fileID: 1520508454}
+  _nameStringFormat: {fileID: 11400000, guid: 6262a83c34786f441a1c473880ea4661, type: 2}
+  _descriptionStringFormat: {fileID: 11400000, guid: ebbf7e3f94d534f46897cf616a8d8f5e, type: 2}
 --- !u!4 &543145173
 Transform:
   m_ObjectHideFlags: 0
@@ -982,6 +985,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 630848695}
+  - component: {fileID: 630848696}
   m_Layer: 5
   m_Name: PlayerInfo
   m_TagString: Untagged
@@ -1013,6 +1017,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -75}
   m_SizeDelta: {x: -40, y: -150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &630848696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630848694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85502db0c29e18e4cb44ea3b1225181c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.UserView
+  _portrait: {fileID: 1071411694}
+  _nameText: {fileID: 1452151969}
+  _descriptionText: {fileID: 1919929459}
 --- !u!1 &651549670
 GameObject:
   m_ObjectHideFlags: 0
@@ -2814,6 +2833,7 @@ GameObject:
   - component: {fileID: 1520508451}
   - component: {fileID: 1520508452}
   - component: {fileID: 1520508453}
+  - component: {fileID: 1520508454}
   m_Layer: 0
   m_Name: PlayerHelper
   m_TagString: Untagged
@@ -2862,6 +2882,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.PlayerStatsHelper
   _playerStatsView: {fileID: 1358139341}
+--- !u!114 &1520508454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520508449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c48b2622c7b27c2468fabea02328e77e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.UserHelper
+  _userView: {fileID: 630848696}
 --- !u!1 &1561423019
 GameObject:
   m_ObjectHideFlags: 0

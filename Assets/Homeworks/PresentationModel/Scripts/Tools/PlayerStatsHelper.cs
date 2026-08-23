@@ -9,6 +9,7 @@ namespace Lessons.Architecture.PM
 
         private StatViewModelFactory _factory;
         private IPlayerStatsViewModel _currentViewModel;
+        private PlayerStats _currentPlayerStats;
 
         [Inject]
         public void Construct(StatViewModelFactory factory)
@@ -19,8 +20,14 @@ namespace Lessons.Architecture.PM
         public void Show(PlayerStats playerStats)
         {
             _currentViewModel?.Dispose();
+            _currentPlayerStats = playerStats;
             _currentViewModel = new PlayerStatsViewModel(playerStats.Stats, _factory);
             _playerStatsView.Init(_currentViewModel);
+        }
+
+        public void ChangeStat(string name, int value)
+        {
+            _currentPlayerStats?.GetStat(name).ChangeValue(value);
         }
     }
 }

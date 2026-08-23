@@ -17,10 +17,10 @@ namespace Lessons.Architecture.PM
             _factory = factory;
         }
 
-        public void Show(PlayerData data)
+        public void Show(PlayerLevel playerLevel)
         {
             _currentLevelViewModel?.Dispose();
-            _currentPlayerLevel = new(data.CurrentExperience, data.CurrentLevel);
+            _currentPlayerLevel = playerLevel;
             _currentLevelViewModel = _factory.Create(_currentPlayerLevel);
             _levelView.Init(_currentLevelViewModel);
         }

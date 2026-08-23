@@ -20,7 +20,8 @@ namespace Lessons.Architecture.PM.Editor
             {
                 if (GUILayout.Button("Show"))
                 {
-                    ((LevelHelper)target).Show(_playerData);
+                    var playerLevel = new PlayerLevel(_playerData.CurrentExperience, _playerData.CurrentLevel);
+                    ((LevelHelper)target).Show(playerLevel);
                 }
             }
 

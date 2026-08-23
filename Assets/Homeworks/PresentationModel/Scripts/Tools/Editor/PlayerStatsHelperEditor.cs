@@ -7,7 +7,6 @@ namespace Lessons.Architecture.PM.Editor
     public sealed class PlayerStatsHelperEditor : UnityEditor.Editor
     {
         private PlayerData _playerData;
-        private PlayerStats _playerStats;
         private string _statName;
         private int _value;
 
@@ -22,8 +21,8 @@ namespace Lessons.Architecture.PM.Editor
             {
                 if (GUILayout.Button("Show"))
                 {
-                    _playerStats = new PlayerStats(_playerData.Stats);
-                    ((PlayerStatsHelper)target).Show(_playerStats);
+                    var playerStats = new PlayerStats(_playerData.Stats);
+                    ((PlayerStatsHelper)target).Show(playerStats);
                 }
             }
 
@@ -31,11 +30,11 @@ namespace Lessons.Architecture.PM.Editor
             _statName = EditorGUILayout.TextField("Stat Name", _statName);
             _value = EditorGUILayout.IntField("Value", _value);
 
-            using (new EditorGUI.DisabledScope(!Application.isPlaying || _playerStats == null))
+            using (new EditorGUI.DisabledScope(!Application.isPlaying))
             {
                 if (GUILayout.Button("ChangeStatValue"))
                 {
-                    _playerStats.GetStat(_statName).ChangeValue(_value);
+                    ((PlayerStatsHelper)target).ChangeStat(_statName, _value);
                 }
             }
         }

@@ -14,10 +14,16 @@ namespace Lessons.Architecture.PM
         [SerializeField] private PlayerStatsHelper _playerStatsHelper;
         [SerializeField] private StatStringFormat _statStringFormat;
 
+        [Header("User")]
+        [SerializeField] private UserHelper _userHelper;
+        [SerializeField] private NameStringFormat _nameStringFormat;
+        [SerializeField] private DescriptionStringFormat _descriptionStringFormat;
+
         protected override void Configure(IContainerBuilder builder)
         {
             ConfigureLevel(builder);
             ConfigureStats(builder);
+            ConfigureUser(builder);
         }
 
         private void ConfigureLevel(IContainerBuilder builder)
@@ -32,6 +38,14 @@ namespace Lessons.Architecture.PM
             builder.RegisterInstance(_statStringFormat);
             builder.Register<StatViewModelFactory>(Lifetime.Singleton);
             builder.RegisterComponent(_playerStatsHelper);
+        }
+
+        private void ConfigureUser(IContainerBuilder builder)
+        {
+            builder.RegisterInstance(_nameStringFormat);
+            builder.RegisterInstance(_descriptionStringFormat);
+            builder.Register<UserViewModelFactory>(Lifetime.Singleton);
+            builder.RegisterComponent(_userHelper);
         }
     }
 }
