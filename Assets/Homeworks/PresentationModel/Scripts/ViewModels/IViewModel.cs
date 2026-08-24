@@ -1,6 +1,8 @@
+using System;
+
 namespace Lessons.Architecture.PM
 {
-    public interface IViewModel
+    public interface IViewModel: IDisposable
     {
     }
 }

@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Lessons.Architecture.PM
 {
-    public sealed class PlayerStatsView : MonoBehaviour
+    public sealed class PlayerStatsView : MonoBehaviour, IDisposable
     {
         [SerializeField] private StatView[] _statViews;
 
@@ -14,6 +15,19 @@ namespace Lessons.Architecture.PM
             {
                 _statViews[i].Init(viewModel.Stats[i]);
             }
+        }
+
+        public void Dispose()
+        {
+            foreach (var statView in _statViews)
+            {
+                statView.Dispose();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Dispose();
         }
     }
 }

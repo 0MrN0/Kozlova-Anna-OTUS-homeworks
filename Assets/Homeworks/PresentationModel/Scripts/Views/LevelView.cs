@@ -1,3 +1,4 @@
+using System;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Lessons.Architecture.PM
 {
-    public sealed class LevelView : MonoBehaviour
+    public sealed class LevelView : MonoBehaviour, IDisposable
     {
         [SerializeField] private TMP_Text _levelText;
         [SerializeField] private TMP_Text _experienceText;
@@ -24,8 +25,6 @@ namespace Lessons.Architecture.PM
         public void Init(ILevelViewModel levelViewModel)
         {
             _levelViewModel = levelViewModel;
-
-            _levelUpButton.onClick.AddListener(LevelUp);
 
             _disposable.Clear();
             _levelViewModel.CanLevelUp
@@ -70,9 +69,20 @@ namespace Lessons.Architecture.PM
             _levelViewModel.LevelUp();
         }
 
+        private void Awake()
+        {
+            _levelUpButton.onClick.AddListener(LevelUp);
+        }
+
         private void OnDestroy()
         {
-            _disposable.Dispose();
+            _levelUpButton.onClick.RemoveListener(LevelUp);
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            _disposable.Clear();
         }
     }
 }

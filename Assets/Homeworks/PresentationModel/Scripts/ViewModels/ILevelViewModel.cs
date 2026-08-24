@@ -1,9 +1,8 @@
-using System;
 using R3;
 
 namespace Lessons.Architecture.PM
 {
-    public interface ILevelViewModel : IViewModel, IDisposable
+    public interface ILevelViewModel : IViewModel
     {
         public ReadOnlyReactiveProperty<bool> CanLevelUp { get; }
         public ReadOnlyReactiveProperty<string> LevelString { get; }

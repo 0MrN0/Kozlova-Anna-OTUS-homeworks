@@ -1,3 +1,4 @@
+using System;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Lessons.Architecture.PM
 {
-    public sealed class UserView : MonoBehaviour
+    public sealed class UserView : MonoBehaviour, IDisposable
     {
         [SerializeField] private Image _portrait;
         [SerializeField] private TMP_Text _nameText;
@@ -47,7 +48,12 @@ namespace Lessons.Architecture.PM
 
         private void OnDestroy()
         {
-            _disposable.Dispose();
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            _disposable.Clear();
         }
     }
 }

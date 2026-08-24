@@ -836,13 +836,14 @@ GameObject:
   m_Component:
   - component: {fileID: 404782608}
   - component: {fileID: 404782613}
+  - component: {fileID: 404782614}
   m_Layer: 5
   m_Name: PopupWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &404782608
 RectTransform:
   m_ObjectHideFlags: 0
@@ -885,6 +886,22 @@ MonoBehaviour:
   _completedBarSprite: {fileID: 21300000, guid: ebca5e0b7178447bea6a7fe825585b0a, type: 3}
   _uncompletedBarSprite: {fileID: 21300000, guid: c9ea6483ca2494ae892f993fec2cb4a6, type: 3}
   _levelUpButton: {fileID: 259983634}
+--- !u!114 &404782614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404782607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2fa6e6760834a549b9e6e95ad10a20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.PlayerPopupView
+  _userView: {fileID: 630848696}
+  _statsView: {fileID: 1358139341}
+  _levelView: {fileID: 404782613}
+  _closeButton: {fileID: 80144483}
 --- !u!1 &409690713
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,11 +971,9 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _levelHelper: {fileID: 1520508452}
+  _playerHelper: {fileID: 1520508452}
   _levelStringFormat: {fileID: 11400000, guid: 487dfb216447d4745943ec0b7be11500, type: 2}
-  _playerStatsHelper: {fileID: 1520508453}
   _statStringFormat: {fileID: 11400000, guid: 5d2f99dc7f8fc4049bfd8d588057f058, type: 2}
-  _userHelper: {fileID: 1520508454}
   _nameStringFormat: {fileID: 11400000, guid: 6262a83c34786f441a1c473880ea4661, type: 2}
   _descriptionStringFormat: {fileID: 11400000, guid: ebbf7e3f94d534f46897cf616a8d8f5e, type: 2}
 --- !u!4 &543145173
@@ -2832,8 +2847,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1520508451}
   - component: {fileID: 1520508452}
-  - component: {fileID: 1520508453}
-  - component: {fileID: 1520508454}
   m_Layer: 0
   m_Name: PlayerHelper
   m_TagString: Untagged
@@ -2865,36 +2878,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1520508449}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 383b2bea4b8eca14ea43363679506b27, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a1f5ac1518a3c64f9538808329b439d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.LevelHelper
-  _levelView: {fileID: 404782613}
---- !u!114 &1520508453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520508449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0881bab96a58a9046a8b365997551a29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.PlayerStatsHelper
-  _playerStatsView: {fileID: 1358139341}
---- !u!114 &1520508454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520508449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c48b2622c7b27c2468fabea02328e77e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.UserHelper
-  _userView: {fileID: 630848696}
+  m_EditorClassIdentifier: Assembly-CSharp::Lessons.Architecture.PM.PlayerHelper
+  _playerPopupView: {fileID: 404782614}
+  _playerData: {fileID: 11400000, guid: 088425d40c651b94bb1d8818405da5bc, type: 2}
 --- !u!1 &1561423019
 GameObject:
   m_ObjectHideFlags: 0

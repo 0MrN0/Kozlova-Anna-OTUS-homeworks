@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lessons.Architecture.PM
 {
-    public sealed class StatView : MonoBehaviour
+    public sealed class StatView : MonoBehaviour, IDisposable
     {
         [SerializeField] private TMP_Text _statText;
 
@@ -17,6 +17,11 @@ namespace Lessons.Architecture.PM
             _disposable = statViewModel.StatString.Subscribe(value => UpdateStatText(value));
         }
 
+        public void Dispose()
+        {
+            _disposable?.Dispose();
+        }
+
         private void UpdateStatText(string value)
         {
             _statText.text = value;
@@ -24,7 +29,7 @@ namespace Lessons.Architecture.PM
 
         private void OnDestroy()
         {
-            _disposable?.Dispose();
+            Dispose();
         }
     }
 }
