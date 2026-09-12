@@ -5,6 +5,7 @@
   <Project Path="UniTask.Linq.csproj" />
   <Project Path="UniTask.csproj" />
   <Project Path="Zenject-IntegrationTests-Editor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Zenject-ReflectionBaking-Editor.csproj" />
   <Project Path="Zenject-Editor.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
@@ -13,6 +14,5 @@
   <Project Path="UniTask.TextMeshPro.csproj" />
   <Project Path="Zenject-PoolMonitor-Editor.csproj" />
   <Project Path="UniTask.DOTween.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="UniTask.Editor.csproj" />
 </Solution>
