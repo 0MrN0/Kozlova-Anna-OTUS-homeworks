@@ -25,5 +25,20 @@ namespace Code.Infrastructure.SceneLoad
          // Awake/OnEnable её объектов уже прошли, SceneContext собрал свой контейнер.
          operation.completed += _ => OnLoaded?.Invoke();
       }
+
+      public void Load(int index, Action OnLoaded = null)
+      {
+         AsyncOperation operation = SceneManager.LoadSceneAsync(index);
+
+         if (operation == null)
+         {
+            Debug.LogError($"[SceneLoader] Индекса сцены '{index}' нет в Build Settings — загрузка невозможна");
+            return;
+         }
+
+         // completed срабатывает после того, как Unity активировала сцену:
+         // Awake/OnEnable её объектов уже прошли, SceneContext собрал свой контейнер.
+         operation.completed += _ => OnLoaded?.Invoke();
+      }
    }
 }

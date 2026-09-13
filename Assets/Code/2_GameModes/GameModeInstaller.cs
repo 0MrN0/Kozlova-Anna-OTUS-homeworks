@@ -11,6 +11,7 @@ namespace Code.GameModes
 
             Container.BindInterfacesTo<BootMode>().AsSingle();
             Container.BindInterfacesTo<MetaMode>().AsSingle();
+            Container.BindInterfacesTo<MainMenuMode>().AsSingle();
             Container.BindInterfacesTo<BattleMode>().AsSingle();
         }
     }

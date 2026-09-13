@@ -10,7 +10,7 @@ namespace Code.GameModes
         public void Enter()
         {
             Debug.Log("Enter boot. Warming up 1000 services");
-            // _saveLoadAggregate.Load();
+            // _saveLoadAggregate.Init();
             // AnalatycService.Init()
             // AudioService.Init()
 
