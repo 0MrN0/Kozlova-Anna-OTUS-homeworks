@@ -1,13 +1,13 @@
-using System;
-using System.Collections;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Code.Infrastructure.SceneLoad
 {
     public class LoadingCurtain : MonoBehaviour, ILoadingCurtain
     {
-        public CanvasGroup Curtain;
-        public static Action OnHide;
+        [SerializeField] private CanvasGroup _curtain;
+        [SerializeField] private float _fadeDuration = 0.4f;
 
         private void Awake()
         {
@@ -16,22 +16,14 @@ namespace Code.Infrastructure.SceneLoad
 
         public void Show()
         {
+            _curtain.DOKill();
             gameObject.SetActive(true);
-            Curtain.alpha = 1;
-            Debug.Log("Show");
+            _curtain.alpha = 1f;
         }
 
-        public void Hide() => StartCoroutine(DoFadeIn());
-
-        private IEnumerator DoFadeIn()
+        public async UniTask Hide()
         {
-            while (Curtain.alpha > 0)
-            {
-                Curtain.alpha -= 0.04f;
-                yield return new WaitForSeconds(0.02f);
-            }
-
-            OnHide?.Invoke();
+            await _curtain.DOFade(0f, _fadeDuration).ToUniTask();
             gameObject.SetActive(false);
         }
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 using Code.Core.Data;
 using Code.Infrastructure.DI.ModeDI;
 using Code.Infrastructure.SceneLoad;
+using Cysharp.Threading.Tasks;
 
 namespace Code.GameModes
 {
@@ -29,7 +30,7 @@ namespace Code.GameModes
 
         private void OnLoaded()
         {
-            _curtain.Hide();
+            _curtain.Hide().Forget();
         }
 
         public void Exit()
