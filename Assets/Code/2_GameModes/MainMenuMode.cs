@@ -27,12 +27,13 @@ namespace Code.GameModes
 
         public void Enter()
         {
-            _sceneLoader.Load((int)GameScene.MainMenu, OnLoaded);
-            _modeDi.WarmUp();
+            EnterAsync().Forget();
         }
 
-        private void OnLoaded()
+        private async UniTaskVoid EnterAsync()
         {
+            await _sceneLoader.Load((int)GameScene.MainMenu);
+            _modeDi.WarmUp();
             _curtain.Hide().Forget();
             _input.SwitchToUiInputMap();
         }

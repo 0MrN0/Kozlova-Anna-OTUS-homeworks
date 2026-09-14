@@ -23,21 +23,21 @@ namespace Code.GameModes
 
         public void Enter()
         {
-            _sceneLoader.Load((int)GameScene.Battle, OnLoaded);
+            EnterAsync().Forget();
+        }
+
+        private async UniTaskVoid EnterAsync()
+        {
+            await _sceneLoader.Load((int)GameScene.Battle);
             _modeDi.WarmUp();
-            
+            _curtain.Hide().Forget();
+            _input.SwitchToGameplayInputMap();
         }
 
         public void Exit()
         {
             _modeDi.CleanUp();
             _curtain.Show();
-        }
-
-        private void OnLoaded()
-        {
-            _curtain.Hide().Forget();
-            _input.SwitchToGameplayInputMap();
         }
 
         public void Tick()

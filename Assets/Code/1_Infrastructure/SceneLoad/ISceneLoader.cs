@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.SceneLoad
 {
   public interface ISceneLoader
   {
-    public void Load(string name, Action OnLoaded = null);
-    public void Load(int index, Action OnLoaded = null);
+    public UniTask Load(string name);
+    public UniTask Load(int index);
   }
 }
