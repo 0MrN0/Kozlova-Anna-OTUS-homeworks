@@ -4,6 +4,7 @@ using Code.Core.Data;
 using Code.Infrastructure.DI.ModeDI;
 using Code.Infrastructure.SceneLoad;
 using Cysharp.Threading.Tasks;
+using Code.Infrastructure.Inputs;
 
 namespace Code.GameModes
 {
@@ -12,12 +13,14 @@ namespace Code.GameModes
         public event Action SwitchToBattleRequested;
 
         private readonly ISceneLoader _sceneLoader;
+        private readonly IInputService _input;
         private readonly IModeDiService _modeDi;
         private readonly ILoadingCurtain _curtain;
 
-        public MainMenuMode(ISceneLoader sceneLoader, IModeDiService modeDi, ILoadingCurtain curtain)
+        public MainMenuMode(ISceneLoader sceneLoader, IModeDiService modeDi, ILoadingCurtain curtain, IInputService input)
         {
             _sceneLoader = sceneLoader;
+            _input = input;
             _modeDi = modeDi;
             _curtain = curtain;
         }
@@ -31,6 +34,7 @@ namespace Code.GameModes
         private void OnLoaded()
         {
             _curtain.Hide().Forget();
+            _input.SwitchToUiInputMap();
         }
 
         public void Exit()

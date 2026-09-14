@@ -3,6 +3,7 @@ using Code.Infrastructure.DI;
 using Code.Infrastructure.SceneLoad;
 using Zenject;
 using Code.GameModes;
+using Code.Infrastructure.Inputs;
 
 namespace Code.Infrastructure.Installers
 {
@@ -14,6 +15,7 @@ namespace Code.Infrastructure.Installers
         {
             DiInstaller.Install(Container);
             SceneLoadingInstaller.Install(Container, _curtainPrefab);
+            InputInstaller.Install(Container);
             GameModeInstaller.Install(Container);
         }
     }
