@@ -9,6 +9,7 @@ namespace Code.Infrastructure.Inputs
     {
         public InputActionAsset Actions => _actions.asset;
         public DefaultInputActions.UIActions UI => _actions.UI;
+        
         public event Action<Vector2> MoveRequested;
         public event Action ClickRequested;
 

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Code.GameModes.Machine
 {
-    public class GameModeMachine : ITickable, IDisposable
+    public class GameModeMachine : IInitializable, ITickable, IDisposable
     {
         private readonly IProjectDiService _projectDi;
         private readonly Dictionary<Type, IGameMode> _modes;
@@ -55,6 +55,11 @@ namespace Code.GameModes.Machine
             _current?.Exit();
             _current = nextMode;
             _current.Enter();
+        }
+
+        public void Initialize()
+        {
+            Enter<BootMode>();
         }
 
         public void Tick()
