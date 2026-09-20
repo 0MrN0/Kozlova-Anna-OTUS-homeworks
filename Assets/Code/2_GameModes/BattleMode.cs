@@ -3,11 +3,14 @@ using Code.Infrastructure.SceneLoad;
 using Code.Infrastructure.DI.ModeDI;
 using Cysharp.Threading.Tasks;
 using Code.Infrastructure.Inputs;
+using System;
 
 namespace Code.GameModes
 {
-    public class BattleMode : IGameMode
+    public class BattleMode : IGameMode, IExitToMenuRequester
     {
+        public event Action BattleExitRequested;
+
         private readonly ISceneLoader _sceneLoader;
         private readonly IInputService _input;
         private readonly IModeDiService _modeDi;
@@ -31,7 +34,7 @@ namespace Code.GameModes
             await _sceneLoader.Load((int)GameScene.Battle);
             _modeDi.WarmUp();
             _curtain.Hide().Forget();
-            _input.SwitchToGameplayInputMap();
+            _input.EnablePlayerInputMap();
         }
 
         public void Exit()
@@ -43,6 +46,11 @@ namespace Code.GameModes
         public void Tick()
         {
 
+        }
+
+        public void RequestExitToMenu()
+        {
+            BattleExitRequested?.Invoke();
         }
     }
 }

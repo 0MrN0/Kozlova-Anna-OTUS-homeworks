@@ -7,12 +7,12 @@ namespace Code.Infrastructure.Inputs
     public interface IInputService
     {
         InputActionAsset Actions { get; }
-        DefaultInputActions.UIActions UI { get; }
+        InputActions.UIActions UI { get; }
 
-        public event Action<Vector2> MoveRequested;
-        public event Action ClickRequested;
+        public event Action<Vector2> MoveKeyPressed;
+        public event Action MoveKeyReleased;
 
-        public void SwitchToUiInputMap();
-        public void SwitchToGameplayInputMap();
+        public void DisablePlayerInputMap();
+        public void EnablePlayerInputMap();
     }
 }

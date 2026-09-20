@@ -35,7 +35,7 @@ namespace Code.GameModes
             await _sceneLoader.Load((int)GameScene.MainMenu);
             _modeDi.WarmUp();
             _curtain.Hide().Forget();
-            _input.SwitchToUiInputMap();
+            _input.DisablePlayerInputMap();
         }
 
         public void Exit()

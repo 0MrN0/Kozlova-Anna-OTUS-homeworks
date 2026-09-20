@@ -25,12 +25,14 @@ namespace Code.GameModes.Machine
         {
             ((BootMode)_modes[typeof(BootMode)]).WarmUpDoneEvent += OnWarmUpDone;
             ((MainMenuMode)_modes[typeof(MainMenuMode)]).SwitchToBattleRequested += SwitchToBattle;
+            ((BattleMode)_modes[typeof(BattleMode)]).BattleExitRequested += ExitToMenu;
         }
 
         private void Unsubscribe()
         {
             ((BootMode)_modes[typeof(BootMode)]).WarmUpDoneEvent -= OnWarmUpDone;
             ((MainMenuMode)_modes[typeof(MainMenuMode)]).SwitchToBattleRequested -= SwitchToBattle;
+            ((BattleMode)_modes[typeof(BattleMode)]).BattleExitRequested -= ExitToMenu;
         }
 
         private void SwitchToBattle()
@@ -39,6 +41,11 @@ namespace Code.GameModes.Machine
         }
 
         private void OnWarmUpDone()
+        {
+            Enter<MainMenuMode>();
+        }
+
+        private void ExitToMenu()
         {
             Enter<MainMenuMode>();
         }

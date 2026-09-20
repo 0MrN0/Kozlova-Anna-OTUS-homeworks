@@ -8,29 +8,28 @@ namespace Code.Infrastructure.Inputs
     public sealed class InputService : IInputService, IDisposable
     {
         public InputActionAsset Actions => _actions.asset;
-        public DefaultInputActions.UIActions UI => _actions.UI;
-        
-        public event Action<Vector2> MoveRequested;
-        public event Action ClickRequested;
+        public InputActions.UIActions UI => _actions.UI;
 
-        private readonly DefaultInputActions _actions;
+        public event Action<Vector2> MoveKeyPressed;
+        public event Action MoveKeyReleased;
+
+        private readonly InputActions _actions;
 
         public InputService()
         {
             _actions = new();
             Subscribe();
+            _actions.UI.Enable();
         }
 
-        public void SwitchToGameplayInputMap()
+        public void EnablePlayerInputMap()
         {
-            _actions.UI.Disable();
             _actions.Player.Enable();
         }
 
-        public void SwitchToUiInputMap()
+        public void DisablePlayerInputMap()
         {
             _actions.Player.Disable();
-            _actions.UI.Enable();
         }
 
         public void Dispose()
@@ -40,18 +39,18 @@ namespace Code.Infrastructure.Inputs
 
         private void Subscribe()
         {
-            _actions.Player.Move.performed += MovePerformer;
-            _actions.UI.Click.performed += ClickPerformer;
+            _actions.Player.Move.performed += MovePerformed;
+            _actions.Player.Move.canceled += MoveCanceled;
         }
 
-        private void ClickPerformer(InputAction.CallbackContext context)
+        private void MoveCanceled(InputAction.CallbackContext context)
         {
-            ClickRequested?.Invoke();
+            MoveKeyReleased?.Invoke();
         }
 
-        private void MovePerformer(InputAction.CallbackContext ctx)
+        private void MovePerformed(InputAction.CallbackContext ctx)
         {
-            MoveRequested?.Invoke(ctx.ReadValue<Vector2>());
+            MoveKeyPressed?.Invoke(ctx.ReadValue<Vector2>());
         }
     }
 }
