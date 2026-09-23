@@ -3,25 +3,31 @@ using Zenject;
 
 namespace Code.Gameplay.Player.View
 {
-    [RequireComponent(typeof(CharacterController))]
     public sealed class PlayerMoverView : MonoBehaviour, IPlayerMoverView
     {
-        private CharacterController _characterController;
+        [SerializeField] private CharacterController _characterController;
 
         [Inject]
         public void Construct(PlayerSpawnPoint spawnPoint)
         {
-            transform.position = spawnPoint.Position;
-        }
-
-        private void Awake()
-        {
-            _characterController = GetComponent<CharacterController>();
+            SetPosition(spawnPoint.Position);
         }
 
         public void Move(Vector3 direction)
         {
             _characterController.Move(direction);
+        }
+
+        public Vector2 GetPosition()
+        {
+            return new(transform.position.x, transform.position.y);
+        }
+
+        public void SetPosition(Vector2 playerPosition)
+        {
+            _characterController.enabled = false;
+            transform.position = playerPosition;
+            _characterController.enabled = true;
         }
     }
 }

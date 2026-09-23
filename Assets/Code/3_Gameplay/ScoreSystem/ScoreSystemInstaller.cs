@@ -7,7 +7,7 @@ namespace Code.Gameplay.ScoreSystem
         public override void InstallBindings()
         {
             Container.Bind<ScoreView>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<ScoreStorage>().AsSingle().WithArguments(0L);
+            Container.Bind<ScoreStorage>().AsSingle();
             Container.BindInterfacesAndSelfTo<ScoreController>().AsSingle().NonLazy();
         }
     }

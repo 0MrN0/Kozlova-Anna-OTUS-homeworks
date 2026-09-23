@@ -3,6 +3,7 @@ using Code.Gameplay.LevelField;
 using Code.Gameplay.Player;
 using Code.Gameplay.Player.View;
 using Code.Gameplay.ScoreSystem;
+using Code.Infrastructure.SaveLoad;
 using UnityEngine;
 using Zenject;
 
@@ -21,6 +22,7 @@ namespace Code.Infrastructure.Installers
             PlayerInstaller.Install(Container, _config, _playerPrefab);
             ScoreSystemInstaller.Install(Container);
             FlowerInstaller.Install(Container, _flowerConfigs, _flowersCount);
+            Container.BindInterfacesAndSelfTo<ProgressApplier>().AsSingle().NonLazy();
         }
     }
 }

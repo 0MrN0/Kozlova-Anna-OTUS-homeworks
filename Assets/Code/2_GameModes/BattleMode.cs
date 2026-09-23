@@ -4,10 +4,11 @@ using Code.Infrastructure.DI.ModeDI;
 using Cysharp.Threading.Tasks;
 using Code.Infrastructure.Inputs;
 using System;
+using Code.Infrastructure.SaveLoad;
 
 namespace Code.GameModes
 {
-    public class BattleMode : IGameMode, IExitToMenuRequester
+    public sealed class BattleMode : IGameMode, IExitToMenuRequester
     {
         public event Action BattleExitRequested;
 
@@ -15,13 +16,15 @@ namespace Code.GameModes
         private readonly IInputService _input;
         private readonly IModeDiService _modeDi;
         private readonly ILoadingCurtain _curtain;
+        private readonly ISaveLoadAggregate _saveLoadAggregate;
 
-        public BattleMode(ISceneLoader sceneLoader, IModeDiService localDI, ILoadingCurtain curtain, IInputService input)
+        public BattleMode(ISceneLoader sceneLoader, IModeDiService localDI, ILoadingCurtain curtain, IInputService input, ISaveLoadAggregate saveLoadAggregate)
         {
             _sceneLoader = sceneLoader;
             _input = input;
             _modeDi = localDI;
             _curtain = curtain;
+            _saveLoadAggregate = saveLoadAggregate;
         }
 
         public void Enter()
@@ -31,6 +34,7 @@ namespace Code.GameModes
 
         private async UniTaskVoid EnterAsync()
         {
+            _saveLoadAggregate.ReadProgress();
             await _sceneLoader.Load((int)GameScene.Battle);
             _modeDi.WarmUp();
             _curtain.Hide().Forget();
@@ -39,6 +43,7 @@ namespace Code.GameModes
 
         public void Exit()
         {
+            _saveLoadAggregate.Cleanup();
             _modeDi.CleanUp();
             _curtain.Show();
         }
@@ -50,6 +55,7 @@ namespace Code.GameModes
 
         public void RequestExitToMenu()
         {
+            _saveLoadAggregate.Save();
             BattleExitRequested?.Invoke();
         }
     }

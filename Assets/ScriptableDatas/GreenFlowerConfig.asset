@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Code.Gameplay.Flower.FlowerConfig
   _scoreValue: 10
   _flowerPrefab: {fileID: 6467865798412418230, guid: 6f666f11b1d90854eba1c1c603c13eef, type: 3}
+  _condigId: Green

@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51eecabbc44dadc46bf5fb412b063179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Gameplay.Views.PlayerMoverView
+  _characterController: {fileID: 5085105288078720603}
 --- !u!114 &471880977487610829
 MonoBehaviour:
   m_ObjectHideFlags: 0

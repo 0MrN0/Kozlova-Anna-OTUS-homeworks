@@ -1,10 +1,10 @@
 using System;
-using UnityEngine;
 using Code.Core.Data;
 using Code.Infrastructure.DI.ModeDI;
 using Code.Infrastructure.SceneLoad;
 using Cysharp.Threading.Tasks;
 using Code.Infrastructure.Inputs;
+using Code.Infrastructure.SaveLoad;
 
 namespace Code.GameModes
 {
@@ -16,13 +16,15 @@ namespace Code.GameModes
         private readonly IInputService _input;
         private readonly IModeDiService _modeDi;
         private readonly ILoadingCurtain _curtain;
+        private readonly ISaveLoadAggregate _saveLoadAggregate;
 
-        public MainMenuMode(ISceneLoader sceneLoader, IModeDiService modeDi, ILoadingCurtain curtain, IInputService input)
+        public MainMenuMode(ISceneLoader sceneLoader, IModeDiService modeDi, ILoadingCurtain curtain, IInputService input, ISaveLoadAggregate saveLoadAggregate)
         {
             _sceneLoader = sceneLoader;
             _input = input;
             _modeDi = modeDi;
             _curtain = curtain;
+            _saveLoadAggregate = saveLoadAggregate;
         }
 
         public void Enter()
@@ -51,15 +53,13 @@ namespace Code.GameModes
 
         public void RequestNewGame()
         {
-            // saveload.NewFile()
-            Debug.Log("New save file created");
+            _saveLoadAggregate.SetNeedLoadGame(false);
             SwitchToBattleRequested?.Invoke();
         }
 
         public void RequestLoadGame()
         {
-            // saveload.Load()
-            Debug.Log("Save file loaded");
+            _saveLoadAggregate.SetNeedLoadGame(true);
             SwitchToBattleRequested?.Invoke();
         }
     }

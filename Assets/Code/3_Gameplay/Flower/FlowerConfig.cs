@@ -8,8 +8,10 @@ namespace Code.Gameplay.Flower
     {
         public long ScoreValue => _scoreValue;
         public FlowerView FlowerPrefab => _flowerPrefab;
-        
+        public string ConfigId => _configId;
+
         [SerializeField] private long _scoreValue = 10;
         [SerializeField] private FlowerView _flowerPrefab;
+        [SerializeField] private string _configId;
     }
 }
