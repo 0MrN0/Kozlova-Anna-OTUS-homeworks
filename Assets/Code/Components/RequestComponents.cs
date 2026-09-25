@@ -1,0 +1,16 @@
+using System;
+
+namespace Code.Components
+{
+    [Serializable]
+    public struct FireRequest
+    {
+        
+    }
+
+    [Serializable]
+    public struct SpawnRequest
+    {
+        
+    }
+}
