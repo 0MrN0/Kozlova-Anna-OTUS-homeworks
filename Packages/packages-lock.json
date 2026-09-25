@@ -1,5 +1,54 @@
 {
   "dependencies": {
+    "com.leoecscommunity.ecslite": {
+      "version": "https://github.com/LeoECSCommunity/ecslite.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "50426caebffc4aec7a6a9c71b9c9bdd579aa45a1"
+    },
+    "com.leoecscommunity.ecslite.di": {
+      "version": "https://github.com/LeoECSCommunity/ecslite-di.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e70e4f982cb324204f80a60516a4a7dda5620aa3"
+    },
+    "com.leoecscommunity.ecslite.extendedfilters": {
+      "version": "https://github.com/LeoECSCommunity/ecslite-extendedfilters.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "be096f14bdc79f06d16becac376a2560a55fb1e3"
+    },
+    "com.leoecscommunity.ecslite.extendedsystems": {
+      "version": "https://github.com/LeoECSCommunity/ecslite-extendedsystems.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1e4cdd6922538c67affa97367f0caf8f6c8e9286"
+    },
+    "com.leoecscommunity.ecslite.unity.ugui": {
+      "version": "https://github.com/LeoECSCommunity/ecslite-unity-ugui.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0a304c5dd24eca0e729b3ccebcfe05f3c1d9895a"
+    },
+    "com.leoecscommunity.ecslite.unityeditor": {
+      "version": "https://github.com/LeoECSCommunity/ecslite-unityeditor.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2a8af59a6e15ecbd34783d32dbb37059e663e7f6"
+    },
+    "com.supremestranger.leoecs-lite-physics": {
+      "version": "https://github.com/supremestranger/leoecs-lite-physics.git#ea0ad960e3268b57964795594a7767305a1fb977",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ea0ad960e3268b57964795594a7767305a1fb977"
+    },
     "com.unity.ext.nunit": {
       "version": "2.0.5",
       "depth": 2,
