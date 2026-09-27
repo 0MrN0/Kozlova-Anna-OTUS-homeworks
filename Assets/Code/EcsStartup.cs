@@ -1,11 +1,9 @@
-using Code.Components;
 using Code.Configs;
 using Code.Services.Inputs;
 using Code.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Entities;
-using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
 
 namespace Code
@@ -30,11 +28,11 @@ namespace Code
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
             _systems
-                .Add(new InputSystem())
+                .Add(new SpawnInputSystem())
+                .Add(new CameraInputSystem())
                 .Add(new MovementSystem())
                 .Add(new SpawnRequestSystem())
                 .Add(new TransformViewSystem())
-                .DelHere<SpawnRequest>(EcsWorlds.EVENTS)
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(EcsWorlds.EVENTS))

@@ -5,11 +5,15 @@ namespace Code.Services.Inputs
 {
     public interface IInputManager : IDisposable
     {
-        public bool SpawnRedCubePressed { get; }
-        public bool SpawnBlueCubePressed { get; }
-        public Vector2 PointerPosition { get; }
+        bool SpawnRedCubePressed { get; }
+        bool SpawnBlueCubePressed { get; }
+        bool CameraRotateHeld { get; }
+        Vector2 PointerPosition { get; }
+        Vector2 CameraMove { get; }
+        Vector2 LookDelta { get; }
+        float Zoom { get; }
 
-        public void Enable();
-        public void Disable();
+        void Enable();
+        void Disable();
     }
 }

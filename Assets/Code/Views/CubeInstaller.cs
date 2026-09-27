@@ -14,7 +14,7 @@ namespace Code.Views
 
             entity.AddData(new Position { Value = transform.position });
             entity.AddData(new Rotation { Value = transform.rotation });
-            entity.AddData(new MoveDirection { Value = Vector2.zero });
+            entity.AddData(new MoveDirection { Value = Vector3.zero });
             entity.AddData(new MoveSpeed { Value = _moveSpeed });
         }
 

@@ -10,7 +10,8 @@ namespace Code.Components
         public Transform Value;
     }
 
-    public struct PrefabComponent
+    [Serializable]
+    public struct Prefab
     {
         public Entity Value;
     }

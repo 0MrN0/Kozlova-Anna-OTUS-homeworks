@@ -8,7 +8,7 @@ namespace Code.Systems
     public sealed class SpawnRequestSystem : IEcsRunSystem
     {
         private readonly EcsWorldInject _eventWorld = EcsWorlds.EVENTS;
-        private readonly EcsFilterInject<Inc<SpawnRequest, Position, Rotation, PrefabComponent>> _filter = EcsWorlds.EVENTS;
+        private readonly EcsFilterInject<Inc<SpawnRequest, Position, Rotation, Prefab>> _filter = EcsWorlds.EVENTS;
         private readonly EcsCustomInject<EntityManager> _entityManager;
 
         public void Run(EcsSystems systems)

@@ -8,6 +8,7 @@ namespace Code.Systems
     public sealed class MovementSystem : IEcsRunSystem
     {
         private readonly EcsFilterInject<Inc<Position, MoveDirection, MoveSpeed>> _filter;
+        
         public void Run(EcsSystems systems)
         {
             var deltaTime = Time.deltaTime;

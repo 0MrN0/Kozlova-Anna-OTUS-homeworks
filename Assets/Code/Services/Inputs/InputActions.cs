@@ -101,7 +101,7 @@ namespace Code.Services.Inputs
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""SpawnBlueCube"",
@@ -118,6 +118,42 @@ namespace Code.Services.Inputs
                     ""id"": ""9793eafd-2185-411f-8765-bf13dd08db34"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""CameraMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""96ab2c65-bc5c-49ac-b732-83384a96548c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""CameraRotateHold"",
+                    ""type"": ""Button"",
+                    ""id"": ""1599ee62-94d9-4b90-964f-dde3768d8ca1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LookDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""72adf64d-7c40-4344-b7ab-9abce77f9647"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""6ca6d420-d79a-4359-9ee8-4d2f0da0819f"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": ""Normalize(max=1)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
@@ -155,6 +191,94 @@ namespace Code.Services.Inputs
                     ""action"": ""Point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""c2824e1a-db6d-46f1-a096-3728bfb155a5"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""efcbdb53-db97-48b7-82a5-665d72238baa"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""f7a755ec-8492-4efc-95c5-b355fa409bc3"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""41d095b7-901b-4b22-a5cc-c746e02c8c3b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""517cb5ef-9754-4f7c-8dc2-0fedec42642e"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6c16fc1-f4c5-49dd-adec-84ba2f0ffbf7"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraRotateHold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b25bdca6-de71-47fd-bfd9-070000cdd0aa"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a0a7bd3-9248-42fd-a8b1-393735acec54"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +290,10 @@ namespace Code.Services.Inputs
             m_Gameplay_SpawnRedCube = m_Gameplay.FindAction("SpawnRedCube", throwIfNotFound: true);
             m_Gameplay_SpawnBlueCube = m_Gameplay.FindAction("SpawnBlueCube", throwIfNotFound: true);
             m_Gameplay_Point = m_Gameplay.FindAction("Point", throwIfNotFound: true);
+            m_Gameplay_CameraMove = m_Gameplay.FindAction("CameraMove", throwIfNotFound: true);
+            m_Gameplay_CameraRotateHold = m_Gameplay.FindAction("CameraRotateHold", throwIfNotFound: true);
+            m_Gameplay_LookDelta = m_Gameplay.FindAction("LookDelta", throwIfNotFound: true);
+            m_Gameplay_Zoom = m_Gameplay.FindAction("Zoom", throwIfNotFound: true);
         }
 
         ~@InputActions()
@@ -249,6 +377,10 @@ namespace Code.Services.Inputs
         private readonly InputAction m_Gameplay_SpawnRedCube;
         private readonly InputAction m_Gameplay_SpawnBlueCube;
         private readonly InputAction m_Gameplay_Point;
+        private readonly InputAction m_Gameplay_CameraMove;
+        private readonly InputAction m_Gameplay_CameraRotateHold;
+        private readonly InputAction m_Gameplay_LookDelta;
+        private readonly InputAction m_Gameplay_Zoom;
         /// <summary>
         /// Provides access to input actions defined in input action map "Gameplay".
         /// </summary>
@@ -272,6 +404,22 @@ namespace Code.Services.Inputs
             /// Provides access to the underlying input action "Gameplay/Point".
             /// </summary>
             public InputAction @Point => m_Wrapper.m_Gameplay_Point;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/CameraMove".
+            /// </summary>
+            public InputAction @CameraMove => m_Wrapper.m_Gameplay_CameraMove;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/CameraRotateHold".
+            /// </summary>
+            public InputAction @CameraRotateHold => m_Wrapper.m_Gameplay_CameraRotateHold;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/LookDelta".
+            /// </summary>
+            public InputAction @LookDelta => m_Wrapper.m_Gameplay_LookDelta;
+            /// <summary>
+            /// Provides access to the underlying input action "Gameplay/Zoom".
+            /// </summary>
+            public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -307,6 +455,18 @@ namespace Code.Services.Inputs
                 @Point.started += instance.OnPoint;
                 @Point.performed += instance.OnPoint;
                 @Point.canceled += instance.OnPoint;
+                @CameraMove.started += instance.OnCameraMove;
+                @CameraMove.performed += instance.OnCameraMove;
+                @CameraMove.canceled += instance.OnCameraMove;
+                @CameraRotateHold.started += instance.OnCameraRotateHold;
+                @CameraRotateHold.performed += instance.OnCameraRotateHold;
+                @CameraRotateHold.canceled += instance.OnCameraRotateHold;
+                @LookDelta.started += instance.OnLookDelta;
+                @LookDelta.performed += instance.OnLookDelta;
+                @LookDelta.canceled += instance.OnLookDelta;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
             }
 
             /// <summary>
@@ -327,6 +487,18 @@ namespace Code.Services.Inputs
                 @Point.started -= instance.OnPoint;
                 @Point.performed -= instance.OnPoint;
                 @Point.canceled -= instance.OnPoint;
+                @CameraMove.started -= instance.OnCameraMove;
+                @CameraMove.performed -= instance.OnCameraMove;
+                @CameraMove.canceled -= instance.OnCameraMove;
+                @CameraRotateHold.started -= instance.OnCameraRotateHold;
+                @CameraRotateHold.performed -= instance.OnCameraRotateHold;
+                @CameraRotateHold.canceled -= instance.OnCameraRotateHold;
+                @LookDelta.started -= instance.OnLookDelta;
+                @LookDelta.performed -= instance.OnLookDelta;
+                @LookDelta.canceled -= instance.OnLookDelta;
+                @Zoom.started -= instance.OnZoom;
+                @Zoom.performed -= instance.OnZoom;
+                @Zoom.canceled -= instance.OnZoom;
             }
 
             /// <summary>
@@ -388,6 +560,34 @@ namespace Code.Services.Inputs
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnPoint(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "CameraMove" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnCameraMove(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "CameraRotateHold" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnCameraRotateHold(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "LookDelta" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLookDelta(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Zoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnZoom(InputAction.CallbackContext context);
         }
     }
 }
