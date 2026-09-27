@@ -1,4 +1,5 @@
 using System;
+using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
 namespace Code.Components
@@ -9,8 +10,8 @@ namespace Code.Components
         public Transform Value;
     }
 
-    public struct PrefabEntity
+    public struct PrefabComponent
     {
-        public int Value;
+        public Entity Value;
     }
 }

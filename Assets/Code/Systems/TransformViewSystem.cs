@@ -15,7 +15,7 @@ namespace Code.Systems
 
             foreach (var entity in _filter.Value)
             {
-                ref var transform = ref _filter.Pools.Inc1.Get(entity);
+                var transform = _filter.Pools.Inc1.Get(entity);
                 var position = _filter.Pools.Inc2.Get(entity);
                 
                 transform.Value.position = position.Value;

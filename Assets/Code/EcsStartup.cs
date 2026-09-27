@@ -1,29 +1,40 @@
+using Code.Components;
+using Code.Configs;
+using Code.Services.Inputs;
 using Code.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Entities;
+using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
 
 namespace Code
 {
     public sealed class EcsStartup : MonoBehaviour
     {
+        [SerializeField] private CubeConfig _cubeConfig;
+
         private EcsWorld _world;
         private EcsWorld _events;
         private EcsSystems _systems;
         private EntityManager _entityManager;
+        private IInputManager _inputManager;
 
         private void Awake()
         {
             _entityManager = new EntityManager();
+            _inputManager = new InputManager();
             _world = new EcsWorld();
             _events = new EcsWorld();
             _systems = new EcsSystems(_world);
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
             _systems
+                .Add(new InputSystem())
                 .Add(new MovementSystem())
+                .Add(new SpawnRequestSystem())
                 .Add(new TransformViewSystem())
+                .DelHere<SpawnRequest>(EcsWorlds.EVENTS)
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(EcsWorlds.EVENTS))
@@ -34,7 +45,9 @@ namespace Code
         private void Start()
         {
             _entityManager.Initialize(_world);
-            _systems.Inject(_entityManager);
+            _inputManager.Enable();
+
+            _systems.Inject(_entityManager, _inputManager, _cubeConfig);
             _systems.Init();
         }
 
@@ -53,6 +66,8 @@ namespace Code
 
             _events?.Destroy();
             _events = null;
+
+            _inputManager?.Dispose();
         }
     }
 }
