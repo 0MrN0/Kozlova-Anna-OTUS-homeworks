@@ -8,7 +8,7 @@ namespace Code.Systems
 {
     public sealed class CameraInputSystem : IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<CameraLook, CameraSettings, Rotation, MoveDirection, Position>> _filter;
+        private readonly EcsFilterInject<Inc<CameraLook, CameraSettings, Rotation, MoveDirection, MoveOffset>> _filter;
         private readonly EcsCustomInject<IInputManager> _inputManager;
 
         public void Run(EcsSystems systems)
@@ -21,7 +21,7 @@ namespace Code.Systems
                 var settings = _filter.Pools.Inc2.Get(entity);
                 ref var rotation = ref _filter.Pools.Inc3.Get(entity);
                 ref var direction = ref _filter.Pools.Inc4.Get(entity);
-                ref var position = ref _filter.Pools.Inc5.Get(entity);
+                ref var offset = ref _filter.Pools.Inc5.Get(entity);
 
                 if (input.CameraRotateHeld)
                 {
@@ -32,7 +32,7 @@ namespace Code.Systems
                 rotation.Value = Quaternion.Euler(look.Pitch, look.Yaw, 0f);
 
                 var zoom = input.Zoom * settings.ZoomSensitivity;
-                position.Value += rotation.Value * Vector3.forward * zoom;
+                offset.Value = rotation.Value * Vector3.forward * zoom;
 
                 var yRotation = Quaternion.Euler(0f, look.Yaw, 0f);
                 var move = input.CameraMove;

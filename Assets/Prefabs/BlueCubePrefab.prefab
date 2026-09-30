@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 982814741041580374}
   - component: {fileID: 4031158025137963440}
   m_Layer: 0
-  m_Name: CubePrefab
+  m_Name: BlueCubePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b047203bbc343ec42aaf7f7353129eab, type: 2}
+  - {fileID: 2100000, guid: c83052243a280fc41a367f229e4e3a74, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

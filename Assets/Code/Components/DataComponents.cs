@@ -42,4 +42,28 @@ namespace Code.Components
         public float MinPitch;
         public float MaxPitch;
     }
+
+    [Serializable]
+    public struct PositionRestrictions
+    {
+        public float MinX;
+        public float MinY;
+        public float MinZ;
+        public float MaxX;
+        public float MaxY;
+        public float MaxZ;
+    }
+
+    [Serializable]
+    public struct PointerWorldPosition
+    {
+        public Vector3 Value;
+        public bool IsValid;
+    }
+
+    [Serializable] 
+    public struct MoveOffset
+    {
+        public Vector3 Value;
+    }
 }

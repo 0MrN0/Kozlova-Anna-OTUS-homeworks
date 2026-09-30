@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd194bd118303594589bb0d66bd10724, type: 3}
   m_Name: CubeConfig
   m_EditorClassIdentifier: Assembly-CSharp::Code.Configs.CubeConfig
-  _redCubePrefab: {fileID: 1014555434048666011, guid: 82b7434f767e50e4281f35c0b188f9e2, type: 3}
+  <RedCubePrefab>k__BackingField: {fileID: 1014555434048666011, guid: 82b7434f767e50e4281f35c0b188f9e2, type: 3}
+  <BlueCubePrefab>k__BackingField: {fileID: 1014555434048666011, guid: a35a7b258956eff4eae5a296939153e0, type: 3}
+  <SpawnHeight>k__BackingField: 2

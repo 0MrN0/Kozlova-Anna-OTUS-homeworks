@@ -1,3 +1,4 @@
+using Code.Components;
 using UnityEngine;
 
 namespace Code.Configs
@@ -5,16 +6,16 @@ namespace Code.Configs
     [CreateAssetMenu(fileName = "CameraConfig", menuName = "Configs / Camera Config")]
     public sealed class CameraConfig : ScriptableObject
     {
-        public float LookSensitivity => _lookSensitivity;
-        public float MinPitch => _minPitch;
-        public float MaxPitch => _maxPitch;
-        public float MoveSpeed => _moveSpeed;
-        public float ZoomSensitivity => _zoomSensitivity;
-
-        [SerializeField] private float _lookSensitivity = 1f;
-        [SerializeField] private float _minPitch = -80f;
-        [SerializeField] private float _maxPitch = 80f;
-        [SerializeField] private float _moveSpeed = 20f;
-        [SerializeField] private float _zoomSensitivity = 5f;
+        [field: SerializeField] public float LookSensitivity {get; private set;} = 1f;
+        [field: SerializeField] public float MinPitch {get; private set;} = -80f;
+        [field: SerializeField] public float MaxPitch {get; private set;} = 80f;
+        [field: SerializeField] public float MoveSpeed {get; private set;} = 20f;
+        [field: SerializeField] public float ZoomSensitivity {get; private set;} = 5f;
+        [field: SerializeField] public float MinX {get; private set;} = -75f;
+        [field: SerializeField] public float MinY {get; private set;} = 0f;
+        [field: SerializeField] public float MinZ {get; private set;} = -75f;
+        [field: SerializeField] public float MaxX {get; private set;} = 75f;
+        [field: SerializeField] public float MaxY {get; private set;} = 75f;
+        [field: SerializeField] public float MaxZ {get; private set;} = 75f;
     }
 }

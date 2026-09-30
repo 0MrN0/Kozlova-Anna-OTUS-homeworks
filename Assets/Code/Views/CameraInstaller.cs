@@ -17,6 +17,7 @@ namespace Code.Views
             entity.AddData(new Rotation { Value = transform.rotation });
             entity.AddData(new MoveDirection { Value = Vector3.zero });
             entity.AddData(new MoveSpeed { Value = _config.MoveSpeed });
+            entity.AddData(new MoveOffset { Value = Vector3.zero });
             entity.AddData(new CameraLook
             {
                 Yaw = transform.eulerAngles.y,
@@ -28,6 +29,15 @@ namespace Code.Views
                 MaxPitch = _config.MaxPitch,
                 MinPitch = _config.MinPitch,
                 ZoomSensitivity = _config.ZoomSensitivity
+            });
+            entity.AddData(new PositionRestrictions
+            {
+                MinX = _config.MinX,
+                MinY = _config.MinY,
+                MinZ = _config.MinZ,
+                MaxX = _config.MaxX,
+                MaxY = _config.MaxY,
+                MaxZ = _config.MaxZ,
             });
         }
 

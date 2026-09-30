@@ -11,6 +11,7 @@ namespace Code
     public sealed class EcsStartup : MonoBehaviour
     {
         [SerializeField] private CubeConfig _cubeConfig;
+        [SerializeField] private Camera _camera;
 
         private EcsWorld _world;
         private EcsWorld _events;
@@ -28,9 +29,11 @@ namespace Code
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
             _systems
+                .Add(new PointerWorldPositionSystem())
                 .Add(new SpawnInputSystem())
                 .Add(new CameraInputSystem())
                 .Add(new MovementSystem())
+                .Add(new PositionRestrictionSystem())
                 .Add(new SpawnRequestSystem())
                 .Add(new TransformViewSystem())
 #if UNITY_EDITOR
@@ -45,7 +48,7 @@ namespace Code
             _entityManager.Initialize(_world);
             _inputManager.Enable();
 
-            _systems.Inject(_entityManager, _inputManager, _cubeConfig);
+            _systems.Inject(_entityManager, _inputManager, _cubeConfig, _camera);
             _systems.Init();
         }
 

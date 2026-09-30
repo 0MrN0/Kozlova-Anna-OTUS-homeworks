@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 678092746}
   - component: {fileID: 678092745}
   - component: {fileID: 678092744}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,6 +360,11 @@ Transform:
   - {fileID: 1769943838}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1264758115 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3290331111335969438, guid: 0690f6df64253e1449d95a301562892f, type: 3}
+  m_PrefabInstance: {fileID: 5332098909642352570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1523406657
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.EcsStartup
   _cubeConfig: {fileID: 11400000, guid: 1de661918b7277e4eae48748f845733c, type: 2}
+  _camera: {fileID: 1264758115}
 --- !u!4 &1523406659
 Transform:
   m_ObjectHideFlags: 0

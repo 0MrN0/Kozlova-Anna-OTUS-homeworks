@@ -11,6 +11,7 @@ namespace Code.Systems
     public sealed class SpawnInputSystem : IEcsRunSystem
     {
         private readonly EcsWorldInject _eventWorld = EcsWorlds.EVENTS;
+        private readonly EcsFilterInject<Inc<PointerWorldPosition>> _pointerFilter;
 
         private readonly EcsPoolInject<SpawnRequest> _spawnRequestPool = EcsWorlds.EVENTS;
         private readonly EcsPoolInject<Position> _positionPool = EcsWorlds.EVENTS;
@@ -25,17 +26,31 @@ namespace Code.Systems
             var input = _inputManager.Value;
             var config = _cubeConfig.Value;
 
-            if (input.SpawnRedCubePressed)
-                CreateSpawnRequest(input.PointerPosition, config.RedCubePrefab);
+            var isRedRequested = input.SpawnRedCubePressed;
+            var isBlueRequested = input.SpawnBlueCubePressed;
 
-            if (input.SpawnBlueCubePressed)
-                CreateSpawnRequest(input.PointerPosition, config.RedCubePrefab);
+            if (!isRedRequested && !isBlueRequested)
+                return;
+
+            foreach (var entity in _pointerFilter.Value)
+            {
+                var pointer = _pointerFilter.Pools.Inc1.Get(entity);
+
+                if (!pointer.IsValid)
+                    continue;
+
+                var spawnPoint = pointer.Value + Vector3.up * config.SpawnHeight;
+
+                if (isRedRequested)
+                    CreateSpawnRequest(spawnPoint, config.RedCubePrefab);
+
+                if (isBlueRequested)
+                    CreateSpawnRequest(spawnPoint, config.BlueCubePrefab);
+            }
         }
 
-        private void CreateSpawnRequest(Vector2 screenPoint, Entity prefab)
+        private void CreateSpawnRequest(Vector3 worldPoint, Entity prefab)
         {
-            var worldPoint = Vector3.zero;
-
             var entity = _eventWorld.Value.NewEntity();
             _spawnRequestPool.Value.Add(entity);
             _positionPool.Value.Add(entity).Value = worldPoint;

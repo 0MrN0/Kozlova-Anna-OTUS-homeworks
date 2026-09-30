@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ef21e3fb35c2340a993b66fcc2a5c9, type: 3}
   m_Name: CameraConfig
   m_EditorClassIdentifier: Assembly-CSharp::Code.Configs.CameraConfig
-  _lookSensitivity: 1
-  _minPitch: -80
-  _maxPitch: 80
-  _moveSpeed: 20
-  _zoomSensitivity: 2
+  <LookSensitivity>k__BackingField: 1
+  <MinPitch>k__BackingField: -80
+  <MaxPitch>k__BackingField: 80
+  <MoveSpeed>k__BackingField: 20
+  <ZoomSensitivity>k__BackingField: 5
+  <MinX>k__BackingField: -35
+  <MinY>k__BackingField: 5
+  <MinZ>k__BackingField: -60
+  <MaxX>k__BackingField: 35
+  <MaxY>k__BackingField: 100
+  <MaxZ>k__BackingField: -5
