@@ -29,13 +29,17 @@ namespace Code
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
             _systems
-                .Add(new PointerWorldPositionSystem())
-                .Add(new SpawnInputSystem())
-                .Add(new CameraInputSystem())
-                .Add(new MovementSystem())
-                .Add(new PositionRestrictionSystem())
-                .Add(new SpawnRequestSystem())
-                .Add(new TransformViewSystem())
+                .Add(new PointerWorldPositionSystem())  // точка на земле под курсором + флаг попадания в землю
+                .Add(new SpawnInputSystem())            // реакция на инпут: создание запроса на спавн
+                .Add(new CameraInputSystem())           // запись сырых инпут-значений камеры
+                .Add(new CameraControlSystem())         // изменение look, rotation + direction, offset у камеры
+                .Add(new MovementSystem())              // плавное изменение position по direction
+                .Add(new MoveOffsetSystem())            // резкий разовый скачок position по offset
+                .Add(new PositionRestrictionSystem())   // ограничение position + запрос на поворот
+                .Add(new TurnRequestSystem())           // разовое изменение direction по запросу на поворот
+                .Add(new FaceMoveDirectionSystem())     // изменение rotation по направлению direction
+                .Add(new SpawnRequestSystem())          // разовый спавн по запросу на спавн
+                .Add(new TransformViewSystem())         // применение position и rotation к MonoBeh.transform
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(EcsWorlds.EVENTS))

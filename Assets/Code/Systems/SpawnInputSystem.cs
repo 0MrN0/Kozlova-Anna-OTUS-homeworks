@@ -12,6 +12,7 @@ namespace Code.Systems
     {
         private readonly EcsWorldInject _eventWorld = EcsWorlds.EVENTS;
         private readonly EcsFilterInject<Inc<PointerWorldPosition>> _pointerFilter;
+        private readonly EcsFilterInject<Inc<CameraLook>> _cameraLookFilter;
 
         private readonly EcsPoolInject<SpawnRequest> _spawnRequestPool = EcsWorlds.EVENTS;
         private readonly EcsPoolInject<Position> _positionPool = EcsWorlds.EVENTS;
@@ -32,6 +33,8 @@ namespace Code.Systems
             if (!isRedRequested && !isBlueRequested)
                 return;
 
+            var rotation = GetSpawnRotation();
+
             foreach (var entity in _pointerFilter.Value)
             {
                 var pointer = _pointerFilter.Pools.Inc1.Get(entity);
@@ -42,20 +45,31 @@ namespace Code.Systems
                 var spawnPoint = pointer.Value + Vector3.up * config.SpawnHeight;
 
                 if (isRedRequested)
-                    CreateSpawnRequest(spawnPoint, config.RedCubePrefab);
+                    CreateSpawnRequest(spawnPoint, rotation, config.RedCubePrefab);
 
                 if (isBlueRequested)
-                    CreateSpawnRequest(spawnPoint, config.BlueCubePrefab);
+                    CreateSpawnRequest(spawnPoint, rotation, config.BlueCubePrefab);
             }
         }
 
-        private void CreateSpawnRequest(Vector3 worldPoint, Entity prefab)
+        private void CreateSpawnRequest(Vector3 worldPoint, Quaternion rotation, Entity prefab)
         {
             var entity = _eventWorld.Value.NewEntity();
             _spawnRequestPool.Value.Add(entity);
             _positionPool.Value.Add(entity).Value = worldPoint;
-            _rotationPool.Value.Add(entity).Value = Quaternion.identity;
+            _rotationPool.Value.Add(entity).Value = rotation;
             _prefabPool.Value.Add(entity).Value = prefab;
+        }
+
+        private Quaternion GetSpawnRotation()
+        {
+            foreach (var entity in _cameraLookFilter.Value)
+            {
+                var look = _cameraLookFilter.Pools.Inc1.Get(entity);
+                return Quaternion.Euler(0f, look.Yaw, 0f);
+            }
+
+            return Quaternion.identity;
         }
     }
 }

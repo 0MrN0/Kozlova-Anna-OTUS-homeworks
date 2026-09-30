@@ -17,7 +17,7 @@ namespace Code.Systems
             {
                 var transform = _filter.Pools.Inc1.Get(entity);
                 var position = _filter.Pools.Inc2.Get(entity);
-                
+
                 transform.Value.position = position.Value;
 
                 if (rotationPool.Has(entity))

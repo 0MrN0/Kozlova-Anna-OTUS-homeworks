@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 5579444872573096094}
   - component: {fileID: 8321894852935774768}
   - component: {fileID: 1014555434048666011}
-  - component: {fileID: 982814741041580374}
-  - component: {fileID: 4031158025137963440}
   m_Layer: 0
   m_Name: BlueCubePrefab
   m_TagString: Untagged
@@ -129,7 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bb1965886b31948a36b04032f597d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Views.CubeInstaller
-  _moveSpeed: 5
+  _cubeConfig: {fileID: 11400000, guid: 1de661918b7277e4eae48748f845733c, type: 2}
+  _fieldConfig: {fileID: 11400000, guid: b926d7cabd91d4c489d2d248399238a4, type: 2}
 --- !u!114 &1014555434048666011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,33 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Leopotam.EcsLite.Entities::Leopotam.EcsLite.Entities.Entity
   installers:
   - {fileID: 8321894852935774768}
---- !u!114 &982814741041580374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1006469396578679411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd6a35104234e9e9fea3a91a768a571, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Leopotam.EcsLite.Entities::Leopotam.EcsLite.Entities.Entity
-  installers:
-  - {fileID: 4031158025137963440}
---- !u!114 &4031158025137963440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1006469396578679411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67bb1965886b31948a36b04032f597d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Code.Views.CubeInstaller
-  _moveSpeed: 5
 --- !u!1 &3522042682733691598
 GameObject:
   m_ObjectHideFlags: 0

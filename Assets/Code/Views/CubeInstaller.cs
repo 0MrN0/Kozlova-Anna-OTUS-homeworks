@@ -1,4 +1,5 @@
 using Code.Components;
+using Code.Configs;
 using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ namespace Code.Views
 {
     public sealed class CubeInstaller : EntityInstaller
     {
-        [SerializeField] private float _moveSpeed = 5f;
+        [SerializeField] private CubeConfig _cubeConfig;
+        [SerializeField] private FieldConfig _fieldConfig;
 
         protected override void Install(Entity entity)
         {
@@ -14,8 +16,15 @@ namespace Code.Views
 
             entity.AddData(new Position { Value = transform.position });
             entity.AddData(new Rotation { Value = transform.rotation });
-            entity.AddData(new MoveDirection { Value = Vector3.zero });
-            entity.AddData(new MoveSpeed { Value = _moveSpeed });
+            entity.AddData(new MoveDirection { Value = transform.forward });
+            entity.AddData(new MoveSpeed { Value = _cubeConfig.Speed });
+            entity.AddData(new TurnAngle { Value = _cubeConfig.TurnAngle });
+            entity.AddData(new PositionRestrictions
+            {
+                Min = _fieldConfig.MinPosition,
+                Max = _fieldConfig.MaxPosition,
+            });
+            entity.AddData(new FaceMoveDirection());
         }
 
         protected override void Dispose(Entity entity)

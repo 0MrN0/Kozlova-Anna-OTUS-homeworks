@@ -32,13 +32,10 @@ namespace Code.Views
             });
             entity.AddData(new PositionRestrictions
             {
-                MinX = _config.MinX,
-                MinY = _config.MinY,
-                MinZ = _config.MinZ,
-                MaxX = _config.MaxX,
-                MaxY = _config.MaxY,
-                MaxZ = _config.MaxZ,
+                Min = _config.MinPosition,
+                Max = _config.MaxPosition,
             });
+            entity.AddData(new CameraInput());
         }
 
         protected override void Dispose(Entity entity)
