@@ -11,6 +11,7 @@ namespace Code
 {
     public sealed class EcsStartup : MonoBehaviour
     {
+        [SerializeField] private TeamConfig _teamConfig;
         [SerializeField] private CubeConfig _cubeConfig;
         [SerializeField] private Camera _camera;
 
@@ -40,6 +41,7 @@ namespace Code
                 .Add(new TurnRequestSystem())           // разовое изменение direction по запросу на поворот
                 .Add(new FaceMoveDirectionSystem())     // изменение rotation по направлению direction
                 .Add(new SpawnRequestSystem())          // разовый спавн по запросу на спавн
+                .Add(new ApplyTeamViewSystem())         // применить команду всем, кому еще не применено
                 .Add(new TransformViewSystem())         // применение position и rotation к MonoBeh.transform
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
@@ -53,7 +55,7 @@ namespace Code
             _entityManager.Initialize(_world);
             _inputManager.Enable();
 
-            _systems.Inject(_entityManager, _inputManager, _cubeConfig, _camera);
+            _systems.Inject(_entityManager, _inputManager, _teamConfig, _cubeConfig, _camera);
             _systems.Init();
         }
 

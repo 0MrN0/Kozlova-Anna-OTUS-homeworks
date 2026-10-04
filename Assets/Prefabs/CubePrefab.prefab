@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8321894852935774768}
   - component: {fileID: 1014555434048666011}
   m_Layer: 0
-  m_Name: RedCubePrefab
+  m_Name: CubePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b047203bbc343ec42aaf7f7353129eab, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bb1965886b31948a36b04032f597d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Views.CubeInstaller
+  _renderer: {fileID: 7384590681879759180}
   _cubeConfig: {fileID: 11400000, guid: 1de661918b7277e4eae48748f845733c, type: 2}
   _fieldConfig: {fileID: 11400000, guid: b926d7cabd91d4c489d2d248399238a4, type: 2}
 --- !u!114 &1014555434048666011

@@ -6,8 +6,7 @@ namespace Code.Configs
     [CreateAssetMenu(fileName = "CubeConfig", menuName = "Configs / Cube Config")]
     public sealed class CubeConfig : ScriptableObject
     {
-        [field: SerializeField] public Entity RedCubePrefab { get; private set; }
-        [field: SerializeField] public Entity BlueCubePrefab { get; private set; }
+        [field: SerializeField] public Entity CubePrefab { get; private set; }
         [field: SerializeField] public float SpawnHeight { get; private set; } = 2f;
         [field: SerializeField] public float Speed { get; private set; } = 5f;
         [field: SerializeField] public float TurnAngle { get; private set; } = -135f;

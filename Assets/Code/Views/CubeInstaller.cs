@@ -7,12 +7,14 @@ namespace Code.Views
 {
     public sealed class CubeInstaller : EntityInstaller
     {
+        [SerializeField] private Renderer _renderer;
         [SerializeField] private CubeConfig _cubeConfig;
         [SerializeField] private FieldConfig _fieldConfig;
 
         protected override void Install(Entity entity)
         {
             entity.AddData(new TransformView { Value = transform });
+            entity.AddData(new RendererView { Value = _renderer });
 
             entity.AddData(new Position { Value = transform.position });
             entity.AddData(new Rotation { Value = transform.rotation });

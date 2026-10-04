@@ -15,4 +15,10 @@ namespace Code.Components
     {
         public Entity Value;
     }
+
+    [Serializable]
+    public struct RendererView
+    {
+        public Renderer Value;
+    }
 }

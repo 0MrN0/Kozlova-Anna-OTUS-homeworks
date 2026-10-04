@@ -18,6 +18,7 @@ namespace Code.Systems
         private readonly EcsPoolInject<SpawnRequest> _spawnRequestPool = EcsWorlds.EVENTS;
         private readonly EcsPoolInject<Position> _positionPool = EcsWorlds.EVENTS;
         private readonly EcsPoolInject<Rotation> _rotationPool = EcsWorlds.EVENTS;
+        private readonly EcsPoolInject<Team> _teamPool = EcsWorlds.EVENTS;
         private readonly EcsPoolInject<Prefab> _prefabPool = EcsWorlds.EVENTS;
 
         private readonly EcsCustomInject<IInputManager> _inputManager;
@@ -46,19 +47,20 @@ namespace Code.Systems
                 var spawnPoint = pointer.Value + Vector3.up * config.SpawnHeight;
 
                 if (isRedRequested)
-                    CreateSpawnRequest(spawnPoint, rotation, config.RedCubePrefab);
+                    CreateSpawnRequest(spawnPoint, rotation, config.CubePrefab, TeamType.Red);
 
                 if (isBlueRequested)
-                    CreateSpawnRequest(spawnPoint, rotation, config.BlueCubePrefab);
+                    CreateSpawnRequest(spawnPoint, rotation, config.CubePrefab, TeamType.Blue);
             }
         }
 
-        private void CreateSpawnRequest(Vector3 worldPoint, Quaternion rotation, Entity prefab)
+        private void CreateSpawnRequest(Vector3 worldPoint, Quaternion rotation, Entity prefab, TeamType teamType)
         {
             var entity = _eventWorld.Value.NewEntity();
             _spawnRequestPool.Value.Add(entity);
             _positionPool.Value.Add(entity).Value = worldPoint;
             _rotationPool.Value.Add(entity).Value = rotation;
+            _teamPool.Value.Add(entity).Value = teamType;
             _prefabPool.Value.Add(entity).Value = prefab;
         }
 

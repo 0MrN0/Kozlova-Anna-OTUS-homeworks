@@ -456,6 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed12952c386dfe48b175fd48173a76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.EcsStartup
+  _teamConfig: {fileID: 11400000, guid: 7c3e10fd79aa2e74884c69ee93da2fd3, type: 2}
   _cubeConfig: {fileID: 11400000, guid: 1de661918b7277e4eae48748f845733c, type: 2}
   _camera: {fileID: 1264758115}
 --- !u!4 &1523406659
