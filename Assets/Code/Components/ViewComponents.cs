@@ -1,4 +1,5 @@
 using System;
+using Code.Services.Views;
 using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
@@ -20,5 +21,11 @@ namespace Code.Components
     public struct RendererView
     {
         public Renderer Value;
+    }
+
+    [Serializable]
+    public struct TriggerListenerView
+    {
+        public TriggerListener Value;
     }
 }

@@ -7,4 +7,7 @@ namespace Code.Components
 
     [Serializable]
     public struct TeamViewApplied { }
+
+    [Serializable]
+    public struct TriggerListenerInited { }
 }

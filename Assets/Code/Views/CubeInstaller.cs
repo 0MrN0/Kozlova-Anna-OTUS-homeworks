@@ -1,5 +1,6 @@
 using Code.Components;
 using Code.Configs;
+using Code.Services.Views;
 using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Code.Views
     public sealed class CubeInstaller : EntityInstaller
     {
         [SerializeField] private Renderer _renderer;
+        [SerializeField] private TriggerListener _triggerListener;
         [SerializeField] private CubeConfig _cubeConfig;
         [SerializeField] private FieldConfig _fieldConfig;
 
@@ -15,6 +17,7 @@ namespace Code.Views
         {
             entity.AddData(new TransformView { Value = transform });
             entity.AddData(new RendererView { Value = _renderer });
+            entity.AddData(new TriggerListenerView { Value = _triggerListener});
 
             entity.AddData(new Position { Value = transform.position });
             entity.AddData(new Rotation { Value = transform.rotation });

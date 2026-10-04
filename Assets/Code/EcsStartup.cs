@@ -1,6 +1,7 @@
 using Code.Configs;
 using Code.Data;
 using Code.Services.Inputs;
+using Code.Services.Physics;
 using Code.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -20,6 +21,7 @@ namespace Code
         private EcsSystems _systems;
         private EntityManager _entityManager;
         private IInputManager _inputManager;
+        private ITriggerEventSink _triggerEventSink; 
 
         private void Awake()
         {
@@ -27,6 +29,7 @@ namespace Code
             _inputManager = new InputManager();
             _world = new EcsWorld();
             _events = new EcsWorld();
+            _triggerEventSink = new EcsTriggerEventSink(_world, _events);
             _systems = new EcsSystems(_world);
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
@@ -35,12 +38,14 @@ namespace Code
                 .Add(new SpawnInputSystem())            // реакция на инпут: создание запроса на спавн
                 .Add(new CameraInputSystem())           // запись сырых инпут-значений камеры
                 .Add(new CameraControlSystem())         // изменение look, rotation + direction, offset у камеры
+                .Add(new VisionSystem())                // обработка попадания в зону видимости
                 .Add(new MovementSystem())              // плавное изменение position по direction
                 .Add(new MoveOffsetSystem())            // резкий разовый скачок position по offset
                 .Add(new PositionRestrictionSystem())   // ограничение position + запрос на поворот
                 .Add(new TurnRequestSystem())           // разовое изменение direction по запросу на поворот
                 .Add(new FaceMoveDirectionSystem())     // изменение rotation по направлению direction
                 .Add(new SpawnRequestSystem())          // разовый спавн по запросу на спавн
+                .Add(new TriggerListenerInitSystem())   // разово проинициализировать заспавненный TriggerListener
                 .Add(new ApplyTeamViewSystem())         // применить команду всем, кому еще не применено
                 .Add(new TransformViewSystem())         // применение position и rotation к MonoBeh.transform
 #if UNITY_EDITOR
@@ -55,7 +60,7 @@ namespace Code
             _entityManager.Initialize(_world);
             _inputManager.Enable();
 
-            _systems.Inject(_entityManager, _inputManager, _teamConfig, _cubeConfig, _camera);
+            _systems.Inject(_entityManager, _inputManager, _triggerEventSink, _teamConfig, _cubeConfig, _camera);
             _systems.Init();
         }
 

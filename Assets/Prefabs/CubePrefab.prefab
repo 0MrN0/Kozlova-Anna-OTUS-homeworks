@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 5579444872573096094}
   - component: {fileID: 8321894852935774768}
   - component: {fileID: 1014555434048666011}
-  m_Layer: 0
+  - component: {fileID: 7753569219083269614}
+  m_Layer: 7
   m_Name: CubePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.Views.CubeInstaller
   _renderer: {fileID: 7384590681879759180}
+  _triggerListener: {fileID: 5554147441700183763}
   _cubeConfig: {fileID: 11400000, guid: 1de661918b7277e4eae48748f845733c, type: 2}
   _fieldConfig: {fileID: 11400000, guid: b926d7cabd91d4c489d2d248399238a4, type: 2}
 --- !u!114 &1014555434048666011
@@ -144,6 +146,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Leopotam.EcsLite.Entities::Leopotam.EcsLite.Entities.Entity
   installers:
   - {fileID: 8321894852935774768}
+--- !u!54 &7753569219083269614
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006469396578679411}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3522042682733691598
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +183,8 @@ GameObject:
   m_Component:
   - component: {fileID: 58485742261849428}
   - component: {fileID: 791181302167477786}
-  m_Layer: 0
+  - component: {fileID: 5554147441700183763}
+  m_Layer: 8
   m_Name: VisionTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,3 +227,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5554147441700183763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3522042682733691598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a858ceda8f0bdc14d8915b0d2a418c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Code.Services.Physics.TriggerListener
+  _owner: {fileID: 1014555434048666011}
