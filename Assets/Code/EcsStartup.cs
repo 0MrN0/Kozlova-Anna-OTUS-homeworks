@@ -1,4 +1,5 @@
 using Code.Configs;
+using Code.Data;
 using Code.Services.Inputs;
 using Code.Systems;
 using Leopotam.EcsLite;

@@ -1,4 +1,5 @@
 using Code.Components;
+using Code.Data;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Entities;

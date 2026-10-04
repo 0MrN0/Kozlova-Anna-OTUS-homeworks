@@ -1,5 +1,6 @@
 using Code.Components;
 using Code.Configs;
+using Code.Data;
 using Code.Services.Inputs;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
