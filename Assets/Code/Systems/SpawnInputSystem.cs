@@ -23,6 +23,7 @@ namespace Code.Systems
 
         private readonly EcsCustomInject<IInputManager> _inputManager;
         private readonly EcsCustomInject<CubeConfig> _cubeConfig;
+        private readonly EcsCustomInject<BulletConfig> _bulletConfig;
 
         public void Run(EcsSystems systems)
         {
@@ -51,6 +52,8 @@ namespace Code.Systems
 
                 if (isBlueRequested)
                     CreateSpawnRequest(spawnPoint, rotation, config.CubePrefab, TeamType.Blue);
+
+                CreateSpawnRequest(spawnPoint, rotation, _bulletConfig.Value.Prefab, TeamType.Blue);
             }
         }
 

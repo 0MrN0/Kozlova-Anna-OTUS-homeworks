@@ -19,4 +19,10 @@ namespace Code.Components
     {
 
     }
+
+    [Serializable]
+    public struct DestroyRequest
+    {
+        
+    }
 }

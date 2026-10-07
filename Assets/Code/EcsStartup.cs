@@ -14,6 +14,7 @@ namespace Code
     {
         [SerializeField] private TeamConfig _teamConfig;
         [SerializeField] private CubeConfig _cubeConfig;
+        [SerializeField] private BulletConfig _bulletConfig;
         [SerializeField] private Camera _camera;
 
         private EcsWorld _world;
@@ -48,6 +49,8 @@ namespace Code
                 .Add(new TriggerListenerInitSystem())   // разово проинициализировать заспавненный TriggerListener
                 .Add(new ApplyTeamViewSystem())         // применить команду всем, кому еще не применено
                 .Add(new TransformViewSystem())         // применение position и rotation к MonoBeh.transform
+                .Add(new LifetimeSystem())
+                .Add(new DestroySystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(EcsWorlds.EVENTS))
@@ -60,7 +63,10 @@ namespace Code
             _entityManager.Initialize(_world);
             _inputManager.Enable();
 
-            _systems.Inject(_entityManager, _inputManager, _triggerEventSink, _teamConfig, _cubeConfig, _camera);
+            _systems.Inject(_entityManager, _inputManager,
+                                _triggerEventSink, 
+                                _teamConfig, _cubeConfig, _bulletConfig, 
+                                _camera);
             _systems.Init();
         }
 

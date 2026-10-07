@@ -52,4 +52,16 @@ namespace Code.Components
     {
         public float Value;
     }
+
+    [Serializable]
+    public struct Damage
+    {
+        public int Value;
+    }
+
+    [Serializable]
+    public struct Lifetime
+    {
+        public float Value;
+    }
 }
