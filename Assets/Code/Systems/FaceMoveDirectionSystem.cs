@@ -17,7 +17,7 @@ namespace Code.Systems
             foreach (var entity in _filter.Value)
             {
                 var direction = directionPool.Get(entity);
-                direction.Value.y = 0f; // поворот не зависит от выстоты направления
+                direction.Value.y = 0f;
                 if (direction.Value.sqrMagnitude < 0.0001f)
                 {
                     continue;

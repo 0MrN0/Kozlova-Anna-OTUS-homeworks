@@ -33,7 +33,7 @@ namespace Code.Views
             entity.AddData(new FaceMoveDirection());
             entity.AddData(new VisionRadius { Value = _visionCollider.radius * _visionCollider.transform.lossyScale.x });
             entity.AddData(new AttackCooldown { Duration = _config.AttackCooldown, Timer = _config.AttackCooldown });
-            entity.AddData(new Health { Value = _config.Health });
+            entity.AddData(new Health { Current = _config.Health, Max = _config.Health });
         }
 
         protected override void Dispose(Entity entity)

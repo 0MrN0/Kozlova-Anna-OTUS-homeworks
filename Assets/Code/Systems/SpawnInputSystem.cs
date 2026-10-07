@@ -38,7 +38,7 @@ namespace Code.Systems
                 if (!pointer.IsValid) continue;
 
                 var spawnPoint = pointer.Value + Vector3.up * config.SpawnHeight;
-                var request = _eventWorld.Value.SendSpawnRequest(_config.Value.CubePrefab, spawnPoint, rotation);
+                var request = _eventWorld.Value.SendSpawnRequest(config.CubePrefab, spawnPoint, rotation);
 
                 if (isRedRequested)
                     _eventWorld.Value.SetTeam(request, TeamType.Red);

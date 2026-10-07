@@ -11,8 +11,9 @@ namespace Code.Components
     }
 
     [Serializable]
-    public struct FiredEvent
+    public struct DamageEvent
     {
-
+        public EcsPackedEntity Target;
+        public int Amount;
     }
 }

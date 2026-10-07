@@ -12,12 +12,6 @@ namespace Code.Components
     }
 
     [Serializable]
-    public struct Prefab
-    {
-        public Entity Value;
-    }
-
-    [Serializable]
     public struct RendererView
     {
         public Renderer Value;

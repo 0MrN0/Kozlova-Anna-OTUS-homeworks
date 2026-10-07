@@ -88,6 +88,7 @@ namespace Code.Components
     [Serializable]
     public struct Health
     {
-        public int Value;
+        public int Max;
+        public int Current;
     }
 }

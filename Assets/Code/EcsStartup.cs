@@ -37,27 +37,29 @@ namespace Code
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
             _systems
-                .Add(new PointerWorldPositionSystem())  // точка на земле под курсором + флаг попадания в землю
-                .Add(new SpawnInputSystem())            // реакция на инпут: создание запроса на спавн
-                .Add(new CameraInputSystem())           // запись сырых инпут-значений камеры
-                .Add(new CameraControlSystem())         // изменение look, rotation + direction, offset у камеры
-                .Add(new VisionSystem())                // обработка попадания в зону видимости
+                .Add(new PointerWorldPositionSystem())
+                .Add(new SpawnInputSystem())
+                .Add(new CameraInputSystem())
+                .Add(new CameraControlSystem())
+                .Add(new VisionSystem())
+                .Add(new HitSystem())
                 .DelHere<TriggerEnterEvent>(EcsWorlds.EVENTS)
-                .Add(new TargetValidationSystem())       // снять плохую цель → SearchTarget
-                .Add(new TargetSearchSystem())           // OverlapSphere → новая цель
-                .Add(new MovementLockSystem())           // MovementLock = цель || Dead
+                .Add(new DamageSystem())
+                .Add(new TargetValidationSystem())
+                .Add(new TargetSearchSystem())
+                .Add(new MovementLockSystem())
                 .Add(new FaceTargetSystem())
                 .Add(new AttackSystem())
-                .Add(new MovementSystem())              // плавное изменение position по direction
-                .Add(new MoveOffsetSystem())            // резкий разовый скачок position по offset
-                .Add(new PositionRestrictionSystem())   // ограничение position + запрос на поворот
-                .Add(new TurnRequestSystem())           // разовое изменение direction по запросу на поворот
-                .Add(new FaceMoveDirectionSystem())     // изменение rotation по направлению direction
+                .Add(new MovementSystem())
+                .Add(new MoveOffsetSystem())
+                .Add(new PositionRestrictionSystem())
+                .Add(new TurnRequestSystem())
+                .Add(new FaceMoveDirectionSystem())
                 .Add(new LifetimeSystem())
-                .Add(new SpawnRequestSystem())          // разовый спавн по запросу на спавн
-                .Add(new TriggerListenerInitSystem())   // разово проинициализировать заспавненный TriggerListener
-                .Add(new ApplyTeamViewSystem())         // применить команду всем, кому еще не применено
-                .Add(new TransformViewSystem())         // применение position и rotation к MonoBeh.transform
+                .Add(new SpawnRequestSystem())
+                .Add(new TriggerListenerInitSystem())
+                .Add(new ApplyTeamViewSystem())
+                .Add(new TransformViewSystem())
                 .Add(new DestroySystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())

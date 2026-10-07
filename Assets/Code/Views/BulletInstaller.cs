@@ -1,5 +1,6 @@
 using Code.Components;
 using Code.Configs;
+using Code.Services.Views;
 using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
@@ -9,11 +10,13 @@ namespace Code.Views
     {
         [SerializeField] private BulletConfig _config;
         [SerializeField] private Renderer _renderer;
+        [SerializeField] private TriggerListener _triggerListener;
 
         protected override void Install(Entity entity)
         {
             entity.AddData(new TransformView { Value = transform });
             entity.AddData(new RendererView { Value = _renderer });
+            entity.AddData(new TriggerListenerView { Value = _triggerListener });
 
             entity.AddData(new Position { Value = transform.position });
             entity.AddData(new Rotation { Value = transform.rotation });
