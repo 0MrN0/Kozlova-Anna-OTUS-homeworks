@@ -1,7 +1,4 @@
-<Solution>
+﻿<Solution>
   <Project Path="Leopotam.EcsLite.Entities.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="VContainer.csproj" />
-  <Project Path="VContainer.Editor.csproj" />
 </Solution>

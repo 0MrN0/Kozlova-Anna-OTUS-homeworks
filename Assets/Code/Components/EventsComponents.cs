@@ -9,4 +9,10 @@ namespace Code.Components
         public EcsPackedEntity Owner;
         public EcsPackedEntity Other;
     }
+
+    [Serializable]
+    public struct FiredEvent
+    {
+
+    }
 }

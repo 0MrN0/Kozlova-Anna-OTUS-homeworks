@@ -10,4 +10,13 @@ namespace Code.Components
 
     [Serializable]
     public struct TriggerListenerInited { }
+
+    [Serializable]
+    public struct SearchTarget { }
+
+    [Serializable]
+    public struct Dead { }
+
+    [Serializable]
+    public struct MovementLock { }
 }

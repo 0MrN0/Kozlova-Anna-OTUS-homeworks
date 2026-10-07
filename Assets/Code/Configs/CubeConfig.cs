@@ -10,5 +10,7 @@ namespace Code.Configs
         [field: SerializeField] public float SpawnHeight { get; private set; } = 2f;
         [field: SerializeField] public float Speed { get; private set; } = 5f;
         [field: SerializeField] public float TurnAngle { get; private set; } = -135f;
+        [field: SerializeField] public float AttackCooldown { get; private set; } = 0.5f;
+        [field: SerializeField] public int Health { get; private set; } = 5;
     }
 }

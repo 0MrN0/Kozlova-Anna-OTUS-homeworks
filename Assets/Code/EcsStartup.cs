@@ -1,3 +1,4 @@
+using Code.Components;
 using Code.Configs;
 using Code.Data;
 using Code.Services.Inputs;
@@ -6,6 +7,7 @@ using Code.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Entities;
+using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
 
 namespace Code
@@ -22,7 +24,7 @@ namespace Code
         private EcsSystems _systems;
         private EntityManager _entityManager;
         private IInputManager _inputManager;
-        private ITriggerEventSink _triggerEventSink; 
+        private ITriggerEventSink _triggerEventSink;
 
         private void Awake()
         {
@@ -40,16 +42,22 @@ namespace Code
                 .Add(new CameraInputSystem())           // запись сырых инпут-значений камеры
                 .Add(new CameraControlSystem())         // изменение look, rotation + direction, offset у камеры
                 .Add(new VisionSystem())                // обработка попадания в зону видимости
+                .DelHere<TriggerEnterEvent>(EcsWorlds.EVENTS)
+                .Add(new TargetValidationSystem())       // снять плохую цель → SearchTarget
+                .Add(new TargetSearchSystem())           // OverlapSphere → новая цель
+                .Add(new MovementLockSystem())           // MovementLock = цель || Dead
+                .Add(new FaceTargetSystem())
+                .Add(new AttackSystem())
                 .Add(new MovementSystem())              // плавное изменение position по direction
                 .Add(new MoveOffsetSystem())            // резкий разовый скачок position по offset
                 .Add(new PositionRestrictionSystem())   // ограничение position + запрос на поворот
                 .Add(new TurnRequestSystem())           // разовое изменение direction по запросу на поворот
                 .Add(new FaceMoveDirectionSystem())     // изменение rotation по направлению direction
+                .Add(new LifetimeSystem())
                 .Add(new SpawnRequestSystem())          // разовый спавн по запросу на спавн
                 .Add(new TriggerListenerInitSystem())   // разово проинициализировать заспавненный TriggerListener
                 .Add(new ApplyTeamViewSystem())         // применить команду всем, кому еще не применено
                 .Add(new TransformViewSystem())         // применение position и rotation к MonoBeh.transform
-                .Add(new LifetimeSystem())
                 .Add(new DestroySystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
@@ -64,8 +72,8 @@ namespace Code
             _inputManager.Enable();
 
             _systems.Inject(_entityManager, _inputManager,
-                                _triggerEventSink, 
-                                _teamConfig, _cubeConfig, _bulletConfig, 
+                                _triggerEventSink,
+                                _teamConfig, _cubeConfig, _bulletConfig,
                                 _camera);
             _systems.Init();
         }

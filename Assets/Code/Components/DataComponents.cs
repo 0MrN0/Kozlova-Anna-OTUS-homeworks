@@ -1,4 +1,5 @@
 using System;
+using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace Code.Components
@@ -63,5 +64,30 @@ namespace Code.Components
     public struct Lifetime
     {
         public float Value;
+    }
+
+    [Serializable]
+    public struct VisionRadius
+    {
+        public float Value;
+    }
+
+    [Serializable]
+    public struct AttackTarget
+    {
+        public EcsPackedEntity Value;
+    }
+
+    [Serializable]
+    public struct AttackCooldown
+    {
+        public float Duration;
+        public float Timer;
+    }
+
+    [Serializable]
+    public struct Health
+    {
+        public int Value;
     }
 }
