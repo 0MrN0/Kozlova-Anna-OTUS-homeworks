@@ -36,7 +36,6 @@ namespace Code.Systems
                         || !healthPool.Has(cube)
                         || !teamPool.Has(bullet)
                         || !teamPool.Has(cube)
-                        || deadPool.Has(cube)
                         || destroyRequestPool.Has(bullet))
                 {
                     continue;
@@ -46,14 +45,15 @@ namespace Code.Systems
                 var team2 = teamPool.Get(cube).Value;
                 if (team1 == team2) continue;
 
+                destroyRequestPool.Add(bullet);
+                if (deadPool.Has(cube)) continue;
+
                 var damageEvent = _events.Value.NewEntity();
                 damageEventPool.Add(damageEvent) = new DamageEvent
                 {
                     Amount = damagePool.Get(bullet).Value,
                     Target = triggerEvent.Other
                 };
-
-                destroyRequestPool.Add(bullet);
             }
         }
     }

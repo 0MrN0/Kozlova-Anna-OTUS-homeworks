@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Code.Views.CubeInstaller
   _renderer: {fileID: 7221090453873957643}
   _triggerListener: {fileID: 5554147441700183763}
+  _animator: {fileID: 8786544167977270565}
   _config: {fileID: 11400000, guid: 1de661918b7277e4eae48748f845733c, type: 2}
   _fieldConfig: {fileID: 11400000, guid: b926d7cabd91d4c489d2d248399238a4, type: 2}
   _visionCollider: {fileID: 791181302167477786}

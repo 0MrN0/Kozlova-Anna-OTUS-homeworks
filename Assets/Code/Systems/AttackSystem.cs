@@ -14,6 +14,7 @@ namespace Code.Systems
         private readonly EcsWorldInject _events = EcsWorlds.EVENTS;
 
         private readonly EcsFilterInject<Inc<AttackTarget, AttackCooldown, Position, Team>, Exc<Dead>> _filter;
+        private readonly EcsPoolInject<AttackPerformed> _attackedPool;
 
         private readonly EcsCustomInject<BulletConfig> _bulletConfig;
 
@@ -25,6 +26,7 @@ namespace Code.Systems
             var cooldownPool = _filter.Pools.Inc2;
             var positionPool = _filter.Pools.Inc3;
             var teamPool = _filter.Pools.Inc4;
+            var attackedPool = _attackedPool.Value;
 
             foreach (var entity in _filter.Value)
             {
@@ -40,12 +42,17 @@ namespace Code.Systems
                     var attackerPosition = positionPool.Get(entity).Value;
                     var direction = positionPool.Get(target).Value - attackerPosition;
                     direction.y = 0f;
-                    attackerPosition += direction.normalized * _bulletConfig.Value.ShotOffset;
                     if (direction.sqrMagnitude < 0.0001f) continue;
+                    attackerPosition += direction.normalized * _bulletConfig.Value.ShotOffset;
                     var rotation = Quaternion.LookRotation(direction);
 
                     var request = _events.Value.SendSpawnRequest(_bulletConfig.Value.Prefab, attackerPosition, rotation);
                     _events.Value.SetTeam(request, teamPool.Get(entity).Value);
+
+                    if (!attackedPool.Has(entity))
+                    {
+                        attackedPool.Add(entity);
+                    }
 
                     cooldown.Timer = cooldown.Duration;
                 }

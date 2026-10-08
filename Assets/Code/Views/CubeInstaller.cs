@@ -10,6 +10,7 @@ namespace Code.Views
     {
         [SerializeField] private Renderer _renderer;
         [SerializeField] private TriggerListener _triggerListener;
+        [SerializeField] private Animator _animator;
         [SerializeField] private CubeConfig _config;
         [SerializeField] private FieldConfig _fieldConfig;
         [SerializeField] private SphereCollider _visionCollider;
@@ -18,6 +19,7 @@ namespace Code.Views
         {
             entity.AddData(new TransformView { Value = transform });
             entity.AddData(new RendererView { Value = _renderer });
+            entity.AddData(new AnimatorView { Value = _animator });
             entity.AddData(new TriggerListenerView { Value = _triggerListener });
 
             entity.AddData(new Position { Value = transform.position });
@@ -34,6 +36,7 @@ namespace Code.Views
             entity.AddData(new VisionRadius { Value = _visionCollider.radius * _visionCollider.transform.lossyScale.x });
             entity.AddData(new AttackCooldown { Duration = _config.AttackCooldown, Timer = _config.AttackCooldown });
             entity.AddData(new Health { Current = _config.Health, Max = _config.Health });
+            entity.AddData(new DeathDelay { Value = _config.DeathDelay });
         }
 
         protected override void Dispose(Entity entity)

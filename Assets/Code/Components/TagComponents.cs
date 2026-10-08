@@ -19,4 +19,10 @@ namespace Code.Components
 
     [Serializable]
     public struct MovementLock { }
+
+    [Serializable]
+    public struct AttackPerformed { }
+
+    [Serializable]
+    public struct Died { }
 }

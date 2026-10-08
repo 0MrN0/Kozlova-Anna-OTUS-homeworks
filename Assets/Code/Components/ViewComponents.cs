@@ -1,6 +1,5 @@
 using System;
 using Code.Services.Views;
-using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
 namespace Code.Components
@@ -21,5 +20,11 @@ namespace Code.Components
     public struct TriggerListenerView
     {
         public TriggerListener Value;
+    }
+
+    [Serializable]
+    public struct AnimatorView
+    {
+        public Animator Value;
     }
 }

@@ -56,9 +56,13 @@ namespace Code
                 .Add(new TurnRequestSystem())
                 .Add(new FaceMoveDirectionSystem())
                 .Add(new LifetimeSystem())
+                .Add(new DeathTimerSystem())
                 .Add(new SpawnRequestSystem())
                 .Add(new TriggerListenerInitSystem())
                 .Add(new ApplyTeamViewSystem())
+                .Add(new AnimatorSystem())
+                .DelHere<AttackPerformed>()
+                .DelHere<Died>()
                 .Add(new TransformViewSystem())
                 .Add(new DestroySystem())
 #if UNITY_EDITOR

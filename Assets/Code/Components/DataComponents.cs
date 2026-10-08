@@ -91,4 +91,16 @@ namespace Code.Components
         public int Max;
         public int Current;
     }
+
+    [Serializable]
+    public struct DeathTimer
+    {
+        public float Value;
+    }
+
+    [Serializable]
+    public struct DeathDelay
+    {
+        public float Value;
+    }
 }

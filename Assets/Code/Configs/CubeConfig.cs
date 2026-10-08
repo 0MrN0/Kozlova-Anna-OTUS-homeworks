@@ -12,5 +12,6 @@ namespace Code.Configs
         [field: SerializeField] public float TurnAngle { get; private set; } = -135f;
         [field: SerializeField] public float AttackCooldown { get; private set; } = 0.5f;
         [field: SerializeField] public int Health { get; private set; } = 5;
+        [field: SerializeField] public float DeathDelay { get; private set; } = 0.5f;
     }
 }

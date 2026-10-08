@@ -7,7 +7,7 @@ namespace Code.Systems
 {
     public sealed class FaceMoveDirectionSystem : IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<FaceMoveDirection, MoveDirection, Rotation>, Exc<AttackTarget>> _filter;
+        private readonly EcsFilterInject<Inc<FaceMoveDirection, MoveDirection, Rotation>, Exc<AttackTarget, Dead>> _filter;
 
         public void Run(EcsSystems systems)
         {
