@@ -16,3 +16,5 @@ MonoBehaviour:
   <SpawnHeight>k__BackingField: 2
   <Speed>k__BackingField: 15
   <TurnAngle>k__BackingField: -135
+  <AttackCooldown>k__BackingField: 0.5
+  <Health>k__BackingField: 5
