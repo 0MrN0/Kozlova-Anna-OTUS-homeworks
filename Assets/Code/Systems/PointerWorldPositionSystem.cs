@@ -1,4 +1,5 @@
 using Code.Components;
+using Code.Configs;
 using Code.Services.Inputs;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -8,7 +9,6 @@ namespace Code.Systems
 {
     public sealed class PointerWorldPositionSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private const string GroundLayerName = "Ground";
         private const float MaxDistance = 200f;
 
         private readonly EcsWorldInject _world;
@@ -16,12 +16,13 @@ namespace Code.Systems
 
         private readonly EcsCustomInject<IInputManager> _inputManager;
         private readonly EcsCustomInject<Camera> _camera;
+        private readonly EcsCustomInject<LayerMaskConfig> _maskConfig;
 
         private int _groundLayerMask;
 
         public void Init(EcsSystems systems)
         {
-            _groundLayerMask = LayerMask.GetMask(GroundLayerName);
+            _groundLayerMask = _maskConfig.Value.GroundMask.value;
 
             var entity = _world.Value.NewEntity();
             _filter.Pools.Inc1.Add(entity);

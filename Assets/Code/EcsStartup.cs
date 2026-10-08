@@ -17,6 +17,7 @@ namespace Code
         [SerializeField] private TeamConfig _teamConfig;
         [SerializeField] private SpawnConfig _spawnConfig;
         [SerializeField] private BulletConfig _bulletConfig;
+        [SerializeField] private LayerMaskConfig _maskConfig;
         [SerializeField] private Camera _camera;
 
         private EcsWorld _world;
@@ -80,7 +81,7 @@ namespace Code
 
             _systems.Inject(_entityManager, _inputManager,
                                 _triggerEventSink,
-                                _teamConfig, _spawnConfig, _bulletConfig,
+                                _teamConfig, _spawnConfig, _bulletConfig, _maskConfig,
                                 _camera);
             _systems.Init();
         }

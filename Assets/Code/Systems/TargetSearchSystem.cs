@@ -1,4 +1,5 @@
 using Code.Components;
+using Code.Configs;
 using Code.Data;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
@@ -13,13 +14,14 @@ namespace Code.Systems
         private readonly EcsFilterInject<Inc<SearchTarget, Position, VisionRadius, Team, Health>, Exc<Dead>> _filter;
         private readonly EcsPoolInject<AttackTarget> _targetPool;
         private readonly EcsPoolInject<Dead> _deadPool;
+        private readonly EcsCustomInject<LayerMaskConfig> _maskConfig;
 
         private readonly Collider[] _nearestEnemies = new Collider[200];
         private int _bodyMask;
 
         public void Init(EcsSystems systems)
         {
-            _bodyMask = LayerMask.GetMask("Body");
+            _bodyMask = _maskConfig.Value.BodyMask.value;
         }
 
         public void Run(EcsSystems systems)
