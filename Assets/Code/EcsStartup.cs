@@ -15,7 +15,7 @@ namespace Code
     public sealed class EcsStartup : MonoBehaviour
     {
         [SerializeField] private TeamConfig _teamConfig;
-        [SerializeField] private CubeConfig _cubeConfig;
+        [SerializeField] private SpawnConfig _spawnConfig;
         [SerializeField] private BulletConfig _bulletConfig;
         [SerializeField] private Camera _camera;
 
@@ -45,6 +45,7 @@ namespace Code
                 .Add(new HitSystem())
                 .DelHere<TriggerEnterEvent>(EcsWorlds.EVENTS)
                 .Add(new DamageSystem())
+                .Add(new DeathSystem())
                 .Add(new TargetValidationSystem())
                 .Add(new TargetSearchSystem())
                 .Add(new MovementLockSystem())
@@ -79,7 +80,7 @@ namespace Code
 
             _systems.Inject(_entityManager, _inputManager,
                                 _triggerEventSink,
-                                _teamConfig, _cubeConfig, _bulletConfig,
+                                _teamConfig, _spawnConfig, _bulletConfig,
                                 _camera);
             _systems.Init();
         }

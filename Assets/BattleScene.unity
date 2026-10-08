@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Code.EcsStartup
   _teamConfig: {fileID: 11400000, guid: 7c3e10fd79aa2e74884c69ee93da2fd3, type: 2}
-  _cubeConfig: {fileID: 11400000, guid: 1de661918b7277e4eae48748f845733c, type: 2}
+  _spawnConfig: {fileID: 11400000, guid: da563720a595cc84ca9ed709ba2a86ca, type: 2}
   _bulletConfig: {fileID: 11400000, guid: bee76475cc46b5f439c055fb291899f3, type: 2}
   _camera: {fileID: 1264758115}
 --- !u!4 &1523406659

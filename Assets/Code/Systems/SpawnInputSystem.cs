@@ -17,7 +17,7 @@ namespace Code.Systems
         private readonly EcsFilterInject<Inc<CameraLook>> _cameraLookFilter;
 
         private readonly EcsCustomInject<IInputManager> _inputManager;
-        private readonly EcsCustomInject<CubeConfig> _config;
+        private readonly EcsCustomInject<SpawnConfig> _config;
 
         public void Run(EcsSystems systems)
         {
