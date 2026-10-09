@@ -1,6 +1,7 @@
 using Code.Components;
 using Code.Configs;
 using Code.Data;
+using Code.Services.Factory;
 using Code.Services.Inputs;
 using Code.Services.Physics;
 using Code.Systems;
@@ -19,20 +20,22 @@ namespace Code
         [SerializeField] private BulletConfig _bulletConfig;
         [SerializeField] private LayerMaskConfig _maskConfig;
         [SerializeField] private Camera _camera;
+        [SerializeField] private Transform _poolContainer;
+        [SerializeField] private PoolsConfig _poolConfig;
 
         private EcsWorld _world;
         private EcsWorld _events;
         private EcsSystems _systems;
-        private EntityManager _entityManager;
+        private PoolEntityFactory _entityFactory;
         private IInputManager _inputManager;
         private ITriggerEventSink _triggerEventSink;
 
         private void Awake()
         {
-            _entityManager = new EntityManager();
-            _inputManager = new InputManager();
             _world = new EcsWorld();
             _events = new EcsWorld();
+            _entityFactory = new PoolEntityFactory(_world, _poolContainer);
+            _inputManager = new InputManager();
             _triggerEventSink = new EcsTriggerEventSink(_world, _events);
             _systems = new EcsSystems(_world);
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
@@ -76,10 +79,15 @@ namespace Code
 
         private void Start()
         {
-            _entityManager.Initialize(_world);
+            _entityFactory.RegisterSceneEntities();
+            foreach (var entry in _poolConfig.Entries)
+            {
+                _entityFactory.Prewarm(entry.Prefab, entry.Count);
+            }
+
             _inputManager.Enable();
 
-            _systems.Inject(_entityManager, _inputManager,
+            _systems.Inject(_entityFactory, _inputManager,
                                 _triggerEventSink,
                                 _teamConfig, _spawnConfig, _bulletConfig, _maskConfig,
                                 _camera);
@@ -104,5 +112,9 @@ namespace Code
 
             _inputManager?.Dispose();
         }
+
+        [ContextMenu("Log Pool Stats")]
+        private void LogPoolStats() => Debug.Log(_entityFactory.GetStats());
+
     }
 }

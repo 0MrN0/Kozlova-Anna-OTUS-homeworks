@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd194bd118303594589bb0d66bd10724, type: 3}
   m_Name: CubeConfig
   m_EditorClassIdentifier: Assembly-CSharp::Code.Configs.CubeConfig
-  <CubePrefab>k__BackingField: {fileID: 1014555434048666011, guid: 82b7434f767e50e4281f35c0b188f9e2, type: 3}
-  <SpawnHeight>k__BackingField: 2
   <Speed>k__BackingField: 15
   <TurnAngle>k__BackingField: -135
   <AttackCooldown>k__BackingField: 0.5
   <Health>k__BackingField: 5
+  <DeathDelay>k__BackingField: 0.5

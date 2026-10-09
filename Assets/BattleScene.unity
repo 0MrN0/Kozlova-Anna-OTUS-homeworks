@@ -427,6 +427,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1769943838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1494609339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1494609340}
+  m_Layer: 0
+  m_Name: '[POOL]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1494609340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494609339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.20048, y: 4.40402, z: 1.64699}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1523406657
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +490,10 @@ MonoBehaviour:
   _teamConfig: {fileID: 11400000, guid: 7c3e10fd79aa2e74884c69ee93da2fd3, type: 2}
   _spawnConfig: {fileID: 11400000, guid: da563720a595cc84ca9ed709ba2a86ca, type: 2}
   _bulletConfig: {fileID: 11400000, guid: bee76475cc46b5f439c055fb291899f3, type: 2}
+  _maskConfig: {fileID: 11400000, guid: 0b071e7dfe7ac0a4583970268ee59668, type: 2}
   _camera: {fileID: 1264758115}
+  _poolContainer: {fileID: 1494609340}
+  _poolConfig: {fileID: 11400000, guid: 2bed6cc1c57dfcc42bc550a5d6b0164a, type: 2}
 --- !u!4 &1523406659
 Transform:
   m_ObjectHideFlags: 0
@@ -642,3 +676,4 @@ SceneRoots:
   - {fileID: 1119352244}
   - {fileID: 1523406659}
   - {fileID: 1150073218}
+  - {fileID: 1494609340}

@@ -1,5 +1,6 @@
 using Code.Components;
 using Code.Data;
+using Code.Services.Factory;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Entities;
@@ -11,7 +12,7 @@ namespace Code.Systems
         private readonly EcsWorldInject _eventWorld = EcsWorlds.EVENTS;
         private readonly EcsFilterInject<Inc<SpawnRequest>> _filter = EcsWorlds.EVENTS;
         private readonly EcsPoolInject<Team> _teamPool = EcsWorlds.EVENTS;
-        private readonly EcsCustomInject<EntityManager> _entityManager;
+        private readonly EcsCustomInject<IEntityFactory> _factory;
 
         public void Run(EcsSystems systems)
         {
@@ -22,7 +23,7 @@ namespace Code.Systems
             {
                 var request = requestPool.Get(entity);
 
-                var created = _entityManager.Value.Create(request.Prefab, request.Position, request.Rotation);
+                var created = _factory.Value.Spawn(request.Prefab, request.Position, request.Rotation);
                 if (teamPool.Has(entity))
                 {
                     created.AddData(new Team { Value = teamPool.Get(entity).Value });
