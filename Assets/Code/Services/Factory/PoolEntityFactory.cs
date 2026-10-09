@@ -13,6 +13,7 @@ namespace Code.Services.Factory
         private readonly Dictionary<Entity, Stack<Entity>> _pools = new();
         private readonly Dictionary<Entity, Entity> _prefabOf = new();
         private readonly Dictionary<int, Entity> _active = new();
+        private readonly Dictionary<Entity, IPoolable[]> _poolables = new();
 
         public PoolEntityFactory(EcsWorld world, Transform container)
         {
@@ -26,6 +27,7 @@ namespace Code.Services.Factory
             instance.transform.SetParent(null, false);
             instance.transform.SetPositionAndRotation(position, rotation);
             instance.gameObject.SetActive(true);
+            NotifySpawned(instance);
 
             instance.Initialize(_world);
             _active.Add(instance.Id, instance);
@@ -41,6 +43,7 @@ namespace Code.Services.Factory
             }
 
             instance.Dispose();
+            NotifyDespawned(instance);
             instance.gameObject.SetActive(false);
             instance.transform.SetParent(_container, false);
 
@@ -107,6 +110,7 @@ namespace Code.Services.Factory
         {
             var instance = Object.Instantiate(prefab, _container);
             _prefabOf.Add(instance, prefab);
+            _poolables.Add(instance, instance.GetComponentsInChildren<IPoolable>(true));
             return instance;
         }
 
@@ -120,5 +124,30 @@ namespace Code.Services.Factory
             return pool;
         }
 
+        private void NotifySpawned(Entity instance)
+        {
+            if (!_poolables.TryGetValue(instance, out var poolables))
+            {
+                return;
+            }
+
+            foreach (var p in poolables)
+            {
+                p.OnSpawned();
+            }
+        }
+
+        private void NotifyDespawned(Entity instance)
+        {
+            if (!_poolables.TryGetValue(instance, out var poolables))
+            {
+                return;
+            }
+
+            foreach (var p in poolables)
+            {
+                p.OnDespawned();
+            }
+        }
     }
 }
