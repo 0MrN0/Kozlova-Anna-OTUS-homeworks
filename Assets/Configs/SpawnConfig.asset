@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Code.Configs.SpawnConfig
   <CubePrefab>k__BackingField: {fileID: 1014555434048666011, guid: 82b7434f767e50e4281f35c0b188f9e2, type: 3}
   <SpawnHeight>k__BackingField: 2
+  <StartCountPerTeam>k__BackingField: 100
+  <StartColumns>k__BackingField: 100
+  <StartSpacing>k__BackingField: 2
+  <StartEdgeOffset>k__BackingField: 50

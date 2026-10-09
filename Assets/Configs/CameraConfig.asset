@@ -15,7 +15,7 @@ MonoBehaviour:
   <LookSensitivity>k__BackingField: 1
   <MinPitch>k__BackingField: -80
   <MaxPitch>k__BackingField: 80
-  <MoveSpeed>k__BackingField: 40
+  <MoveSpeed>k__BackingField: 80
   <ZoomSensitivity>k__BackingField: 5
-  <MinPosition>k__BackingField: {x: -35, y: 5, z: -35}
-  <MaxPosition>k__BackingField: {x: 35, y: 100, z: 35}
+  <MinPosition>k__BackingField: {x: -50, y: 5, z: -50}
+  <MaxPosition>k__BackingField: {x: 50, y: 100, z: 50}

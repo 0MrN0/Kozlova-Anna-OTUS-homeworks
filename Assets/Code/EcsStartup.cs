@@ -19,6 +19,7 @@ namespace Code
         [SerializeField] private SpawnConfig _spawnConfig;
         [SerializeField] private BulletConfig _bulletConfig;
         [SerializeField] private LayerMaskConfig _maskConfig;
+        [SerializeField] private FieldConfig _fieldConfig;
         [SerializeField] private Camera _camera;
         [SerializeField] private Transform _poolContainer;
         [SerializeField] private PoolsConfig _poolConfig;
@@ -41,6 +42,7 @@ namespace Code
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
             _systems
+                .Add(new StartSpawnSystem())            // разово при старте: запросы на спавн двух армий
                 .Add(new PointerWorldPositionSystem())
                 .Add(new SpawnInputSystem())
                 .Add(new CameraInputSystem())
@@ -89,7 +91,7 @@ namespace Code
 
             _systems.Inject(_entityFactory, _inputManager,
                                 _triggerEventSink,
-                                _teamConfig, _spawnConfig, _bulletConfig, _maskConfig,
+                                _teamConfig, _spawnConfig, _bulletConfig, _maskConfig, _fieldConfig,
                                 _camera);
             _systems.Init();
         }

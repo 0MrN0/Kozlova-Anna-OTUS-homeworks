@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee68150fe7c57f84a9bb97ce19edb05c, type: 3}
   m_Name: FieldConfig
   m_EditorClassIdentifier: Assembly-CSharp::Code.Configs.FieldConfig
-  <Min>k__BackingField: {x: -50, y: 1, z: -50}
-  <Max>k__BackingField: {x: 50, y: 25, z: 50}
+  <MinPosition>k__BackingField: {x: -100, y: 1, z: -100}
+  <MaxPosition>k__BackingField: {x: 100, y: 25, z: 100}
